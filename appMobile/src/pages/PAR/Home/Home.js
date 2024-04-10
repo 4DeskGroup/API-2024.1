@@ -1,8 +1,13 @@
 import React from 'react';
-import Title from './components/Title'
+
+import {
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
+import Navbar from './src/components/Navbar';
+import Title from './components/Title';
 import Main from './components/Main';
-import {Animated, StyleSheet, Text, View} from 'react-native';
-import Navbar from './components/Navbar'
 
 export default function Home(){
   return(
@@ -17,7 +22,7 @@ export default function Home(){
 const styles = StyleSheet.create({
 body: {
   flex:1, 
-  backgroundColor: '#C84734',
+  backgroundColor: '#F3F6FF',
 }
 
 })
