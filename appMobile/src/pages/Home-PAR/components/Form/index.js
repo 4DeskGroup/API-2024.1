@@ -9,14 +9,12 @@ import {
   ScrollView,
 } from 'react-native';
 import styles from './style';
-import { useNavigation } from '@react-navigation/native';
 
 export default function Forms() {
-  const navigation = useNavigation();
 
 
   function button() {
-    navigation.navigate('ADM')
+    console.log('oi');
   }
 
   return (

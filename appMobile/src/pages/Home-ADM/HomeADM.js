@@ -7,7 +7,7 @@ import {
   View,
 } from 'react-native';
 
-export default function App(){
+export default function HomeADM(){
   return(
     <View style = {styles.body}>
       <Title/>
