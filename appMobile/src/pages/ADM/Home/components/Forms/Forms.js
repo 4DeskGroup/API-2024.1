@@ -63,7 +63,7 @@ export default function Forms() {
         <TouchableOpacity
           style={styles.buttonMenu}
           onPress={() => {
-            button();
+            navigate('Parceiros')
           }}>
           <View style={styles.buttonContainer}>
             <View style={styles.buttonImage}>
@@ -75,7 +75,7 @@ export default function Forms() {
             <View style={styles.buttonText}>
               <Text style={styles.titleButtonMenu}>Parceiros</Text>
               <Text style={styles.subtitleButtonMenu}>
-                Crie um registro para nova empresa parceira
+                Visualize os parceiros
               </Text>
             </View>
           </View>
@@ -83,7 +83,7 @@ export default function Forms() {
         <TouchableOpacity
           style={styles.buttonMenu}
           onPress={() => {
-            button();
+            navigate('Parceiros')
           }}>
           <View style={styles.buttonContainer}>
             <View style={styles.buttonImage}>
