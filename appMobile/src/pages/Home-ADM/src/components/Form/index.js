@@ -9,10 +9,12 @@ import {
   ScrollView,
 } from 'react-native';
 import styles from './style';
+import navigate from '../../../../../../RootNavigation';
+
+
 export default function Forms() {
   function button() {
-    const a = 'oi';
-    return a;
+    navigate('ExpertiseCursoParceiro')
   }
 
   return (
