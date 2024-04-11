@@ -13,7 +13,7 @@ import navigate from '../../../../../../RootNavigation';
 
 export default function Forms() {
   function button() {
-    navigate('ExpertiseCursoParceiro')
+    navigate('ExpertiseCursoParceiro',{IdParceiro:"660d52c06df6478154f70361", IdExpertise:"660c1e18cfc3b2d71c3c9cfd"})
   }
 
   return (
