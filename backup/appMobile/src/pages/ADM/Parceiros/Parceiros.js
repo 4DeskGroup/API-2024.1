@@ -1,19 +1,19 @@
 import React from 'react';
 
 import {Animated, ScrollView, StyleSheet, Text, View} from 'react-native';
-import Title from './components/Title/Title';
-import Main from './components/Main/Main';
+import Title from './Components/Title/Title';
+import Forms from './Components/Forms/Forms';
+import Main from './Components/Main/Main';
 import Navbar from '../../../components/navbar';
 
-export default function Home(){
+
+export default function Parceiros(){
   return(
     <View style = {styles.body}>
-
       <ScrollView>
       <Title/>
       <Main/>
       </ScrollView>
-
       <Navbar/>
     </View>
   );

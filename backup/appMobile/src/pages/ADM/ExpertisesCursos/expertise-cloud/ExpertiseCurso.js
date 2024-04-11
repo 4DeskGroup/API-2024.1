@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import Return from './Return/index';
 
-export default function App(){
+export default function ExpertiseCurso(){
   return(
     <View style = {styles.body}>
       <Return/>

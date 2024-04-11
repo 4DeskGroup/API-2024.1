@@ -6,8 +6,8 @@ import {
   View,
 } from 'react-native';
 import Navbar from './src/components/Navbar';
-import Title from './components/Title';
-import Main from './components/Main';
+import Title from './components/Title/Title';
+import Main from './components/Main/Forms';
 
 export default function Home(){
   return(

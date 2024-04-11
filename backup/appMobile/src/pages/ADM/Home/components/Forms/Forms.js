@@ -9,6 +9,7 @@ import {
   ScrollView,
 } from 'react-native';
 import styles from './style';
+
 export default function Forms() {
   function button() {
     const a = 'oi';
