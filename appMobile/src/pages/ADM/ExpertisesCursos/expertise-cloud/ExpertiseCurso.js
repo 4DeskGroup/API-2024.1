@@ -1,20 +1,19 @@
 import React from 'react';
-
+import Title from './Title/index';
+import Main from './Main/index';
 import {
   StyleSheet,
   Text,
   View,
 } from 'react-native';
-import Navbar from './src/components/Navbar';
-import Title from './components/Title/Title';
-import Main from './components/Main/Forms';
+import Return from './Return/index';
 
-export default function Home(){
+export default function ExpertiseCurso(){
   return(
     <View style = {styles.body}>
+      <Return/>
       <Title/>
       <Main/>
-      <Navbar/>
     </View>
   );
 }
@@ -22,7 +21,7 @@ export default function Home(){
 const styles = StyleSheet.create({
 body: {
   flex:1, 
-  backgroundColor: '#F3F6FF',
+  backgroundColor: '#C84734',
 }
 
 })

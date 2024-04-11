@@ -1,7 +1,7 @@
 import * as React from 'react';
-import HomePAR from './src/pages/Home-PAR/HomePAR';
-import HomeADM from './src/pages/Home-ADM/HomeADM';
-import ExpertiseCursoParceiro from './src/pages/AtualizarExpertises/expertise-cloud/ExpertiseCursosParceiro';
+// import HomePAR from './src/pages/Home-PAR/HomePAR';
+import HomeADM from './src/pages/ADM/Home/HomeADM';
+import ExpertiseCursoParceiro from './src/pages/ADM/ExpertisesCursos/expertise-cloud/ExpertiseCurso';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { navigationRef } from './RootNavigation';
