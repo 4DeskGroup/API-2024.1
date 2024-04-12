@@ -8,12 +8,12 @@ import {
 } from 'react-native';
 import Return from './Return/index';
 
-export default function ExpertiseCurso(){
+export default function ExpertiseCurso({route}){
   return(
     <View style = {styles.body}>
       <Return/>
       <Title/>
-      <Main/>
+      <Main params={route.params} />
     </View>
   );
 }

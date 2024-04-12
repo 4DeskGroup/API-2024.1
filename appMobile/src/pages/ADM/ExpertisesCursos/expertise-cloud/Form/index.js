@@ -2,16 +2,16 @@ import React, { useEffect, useState } from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import styles from './style';
 import CheckBox from '@react-native-community/checkbox';
-import Axios from 'axios';
+import axios from '../../../../../Axios/axiosInstancia';
 
-export default function Forms() {
+export default function Forms(params) {
   const [lista, setLista] = useState([]);
 
   const GETInicio = async (idParceiro, idExpertise) => {
     try {
-      const response = await Axios.post(`http://192.168.15.24:3001/GETCursoExpertisesParceiro`, {
-        idParceiro: idParceiro,
-        idExpertise: idExpertise
+      const response = await axios.post(`/GETCursoExpertisesParceiro`, {
+        IdParceiro: idParceiro,
+        IdExpertise: idExpertise
       });
 
       console.log('RESPONSE: ', response.data);
@@ -25,7 +25,8 @@ export default function Forms() {
   };
 
   useEffect(() => {
-    GETInicio('660d52c06df6478154f70361', '660c1e18cfc3b2d71c3c9cfd')
+
+    GETInicio(params.params.IdParceiro, params.params.IdExpertise)
 
     console.log('LISTA' + lista);
 
