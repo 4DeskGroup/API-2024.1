@@ -45,7 +45,6 @@ const styles = StyleSheet.create({
    justifyContent: 'center',
  },
  buttonImage: {
-   marginTop: 5,
    marginLeft:26,
    flex:1
  },
@@ -65,8 +64,8 @@ const styles = StyleSheet.create({
    color: '#B5AEAE',
 },
 icon: {
-   width:'75%',
-   height:'91%',
+   width: 50,
+   height:50,
    borderRadius: 8
 }
 })
