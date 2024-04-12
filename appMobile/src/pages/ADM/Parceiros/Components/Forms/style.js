@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     width: '91.5%',
-    height: '30%',
+    height: 55,
     backgroundColor: '#FFFFFF',
     paddingTop: '5%',
     paddingBottom: '5%',
@@ -45,33 +45,30 @@ const styles = StyleSheet.create({
    flexDirection: 'row',
    alignContent: 'center',
    justifyContent: 'center',
+   alignItems: 'center'
  },
  
  buttonImage: {
-   flex:1
+   flex:1,
  },
 
  buttonText: {
-   flex:3,
+   flex:6,
    marginBottom: 3,
-   justifyContent:'center'
+   justifyContent:'center',
  },
 
  titleButtonMenu: {
-    fontSize: 20,
+    fontSize: 16,
     color: '#2F2A4E',
     fontWeight: 'bold',
-    marginLeft: '20%'
+    marginLeft: '10%',
+    marginBottom: -2
  },
 
- subtitleButtonMenu: {
-   fontSize: 16,
-   color: '#B5AEAE',
-},
 icon: {
-   width:'50%',
-   height:'50%',
-   borderRadius: 8
+   width:20,
+   height:15,
 }
 })
 export default styles

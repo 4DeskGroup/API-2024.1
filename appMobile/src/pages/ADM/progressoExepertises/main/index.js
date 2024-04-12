@@ -76,7 +76,7 @@ export default function Main(params) {
                 <ProgressBarAndroid
                   styleAttr="Horizontal"
                   indeterminate={false}
-                  progress={formatPorcentagem(item.porcentagem)}
+                  progress={(formatPorcentagem(item.porcentagem) / 100)}
                   color="#C84734"
                 />
               </View>
