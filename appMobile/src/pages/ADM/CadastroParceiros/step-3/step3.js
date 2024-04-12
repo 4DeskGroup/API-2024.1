@@ -16,6 +16,8 @@ const CustomPicker = ({ options, selectedOptions, onSelectOption, onRemoveOption
         setIsOpen(false); // Fecha o modal após selecionar um item
     };
 
+    console.log("OPTIONS:  " + JSON.stringify(options));
+
     return (
         <View style={styles.pickerContainer}>
             <TouchableOpacity onPress={() => setIsOpen(true)} style={styles.pickerButton}>
@@ -51,6 +53,8 @@ const CustomPicker = ({ options, selectedOptions, onSelectOption, onRemoveOption
     );
 };
 
+
+
 export default function CadastroStep3(parametros) {
     const [expertises, setExpertises] = useState([]);
     const [selectedExpertises, setSelectedExpertises] = useState([]);
@@ -62,8 +66,8 @@ export default function CadastroStep3(parametros) {
     const step1 = JSON.parse(parametros.route.params.Step1)
     const step2 = JSON.parse(parametros.route.params.Step2)
 
-    console.log(step1)
-    console.log(step2)
+    console.log('step1:  ' + JSON.stringify(step1))
+    console.log('step2:  ' + JSON.stringify(step2))
 
     const handleExpertiseSelection = (expertise) => {
         setSelectedExpertises([...selectedExpertises, expertise]);
@@ -75,24 +79,25 @@ export default function CadastroStep3(parametros) {
         setSelectedExpertises(updatedExpertises);
     };
 
-    // const GETExpertises = async () => {
-    //     try {
-    //         const response = await Axios.get(`/listarExpertises`, {});
+    const GETExpertises = async () => {
+        try {
+            const response = await Axios.get(`/listarExpertisesNomeDesID`);
 
-    //         if (response.data.Sucesso) {
-    //             const expertisesArray = response.data.Retorno;
-    //             console.log(expertisesArray)
-    //             setExpertises(expertisesArray);
-    //         }
-    //     } catch (error) {
-    //         console.error('Erro ao fazer a solicitação:', error);
-    //     }
-    // };
+            if (response.data.Sucesso) {
+                const expertisesArray = response.data.Retorno;
+                console.log(expertisesArray)
+                setExpertises(expertisesArray);
+            }
+        } catch (error) {
+            console.error('Erro ao fazer a solicitação:', error);
+        }
+    };
 
-    // useEffect(() => {
-    //     GETExpertises()
-    //     console.log('expertises: ' + expertises);
-    // }, [])
+    useEffect(() => {
+        GETExpertises()
+        console.log('expertises: ' + expertises);
+    }, [])
+
 
     const cadastrarParceiro = async () => {
         if (tipoFiliacao.trim() === '' || OPNTrack.trim() === '' || primeiraFiliacao.trim() === '' || slogan.trim() === '' || selectedExpertises.length === 0) {
@@ -104,9 +109,13 @@ export default function CadastroStep3(parametros) {
         }
 
         const endereco = {
+            cep: 'CEP',
             logradouro: step1.Endereco,
-            cidade: step1.Cidade
+            bairro: "Bairro",
+            cidade: step1.Cidade,
+            uf: "UF"
         }
+
 
         const expertisesParceiro = [
             {
@@ -114,36 +123,28 @@ export default function CadastroStep3(parametros) {
                 nome: "Expertise 1",
                 descricao: "Descrição da Expertise 1",
                 cursosRealizados: [
-                    {
-                        "idCurso": "61f25c5b1f0b59015c1123b1",
-                        "nome": "Curso 1",
-                        "descricao": "Descrição do Curso 1"
-                    },
-                    {
-                        "idCurso": "61f25c5b1f0b59015c1123b2",
-                        "nome": "Curso 2",
-                        "descricao": "Descrição do Curso 2"
-                    }
                 ]
             }
-        ]
+        ];
 
         const dadosParceiro = {
             nome: step1.Nome,
             pais: step1.Pais,
-            endereco: step1.Endereco,
-            cidade: step1.Cidade,
+            endereco: [endereco], // Note que aqui o endereço está dentro de um array, assim como no exemplo JSON
             OPNAdminName: step2.NomeAdminOPN,
             OPNAdminEmail: step2.EmailAdminOPN,
-            ComplianceHold: step2.ComplianceHold,
-            CreditHold: step2.CreditHold,
+            ComplianceHold: step2.ComplianceHolds,
+            CreditHold: step2.CreditoHold,
             OPNStatus: step2.OPNStatus,
             tipoMembro: tipoFiliacao,
             OPNTrack: OPNTrack,
             primeiroMembro: primeiraFiliacao,
             slogan: slogan,
-            // ExpertisesParceiro: expertisesParceiro
-        }
+            ExpertisesParceiro: expertisesParceiro
+        };
+
+        console.log('AAAAAAAAAAAAAAAAA:  ' + JSON.stringify(dadosParceiro));
+
 
         const response = await Axios.post('/cadastrarParceiro', {
             dadosParceiro
