@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-interface CursoInterface {
+export interface CursoInterface {
     nome: string;
     descricao: string;
     _id: mongoose.Schema.Types.ObjectId;

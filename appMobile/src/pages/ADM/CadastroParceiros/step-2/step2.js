@@ -1,26 +1,42 @@
 import React, { useState, useEffect } from "react";
-import { Image, KeyboardAvoidingView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Image, KeyboardAvoidingView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View, Alert } from "react-native";
 import * as Animatable from 'react-native-animatable'
 import Logo from "../../../LOGIN/components/logo";
 import Title from "../components/title";
 import styles from './style';
-// import navigate from "../RootNavigation";
-// import { sessao } from "../storage/sessao";
+import navigate from "../../../../../RootNavigation";
 
-export default function Cadastro2() {
-    // const [dadosStep1, setDadosStep1] = useState(null);
+export default function CadastroStep2(parametros) {
+    const [nomeAdminOPN, setNomeAdminOPN] = useState('');
+    const [emailAdminOPN, setEmailAdminOPN] = useState('');
+    const [complianceHold, setComplianceHold] = useState('');
+    const [creditoHold, setCreditoHold] = useState('');
+    const [OPNStatus, setOPNStatus] = useState('');
+    
+    const step1 = parametros.route.params
+    console.log(step1)
+    
+    const continuarStep = () => {
+        if (nomeAdminOPN.trim() === '' || emailAdminOPN.trim() === '' || complianceHold.trim() === '' || creditoHold.trim() === '' || OPNStatus.trim() === '') {
+            Alert.alert(
+                'Campos vazios',
+                'Por favor, preencha todos os campos antes de continuar.'
+            );
+            return;
+        }
 
-    // useEffect(() => {
-    //     function capturaDados() {
-    //         const dados = sessao.getString('step1')
-    //         setDadosStep1(dados ? JSON.parse(dados) : {})
-    //     };
+        const dadosStep2 = {
+            NomeAdminOPN: nomeAdminOPN,
+            EmailAdminOPN: emailAdminOPN,
+            ComplianceHolds: complianceHold,
+            CreditoHold: creditoHold,
+            OPNStatus: OPNStatus
+        };
+        
+        const steps = {Step1: JSON.stringify(step1), Step2: JSON.stringify(dadosStep2)}
+        navigate('CadastroStep3', steps)
+    };
 
-    //     capturaDados();
-    // }, []);
-
-    // console.log(dadosStep1);
- 
     return (
         <KeyboardAvoidingView style={styles.background} behavior="padding">
             <ScrollView contentContainerStyle={styles.container}>
@@ -41,7 +57,7 @@ export default function Cadastro2() {
                         placeholder="Nome do Administrador OPN"
                         placeholderTextColor="#B5AEAE"
                         autoCorrect={false}
-                        onChangeText={() => { }}
+                        onChangeText={text => setNomeAdminOPN(text)}
                     />
                     <Text style={styles.title}>Email do Administrador OPN</Text>
                     <TextInput
@@ -49,7 +65,7 @@ export default function Cadastro2() {
                         placeholder="Email do Administrador OPN"
                         placeholderTextColor="#B5AEAE"
                         autoCorrect={false}
-                        onChangeText={() => { }}
+                        onChangeText={text => setEmailAdminOPN(text)}
                     />
                     <Text style={styles.title}>Compliance Hold</Text>
                     <TextInput
@@ -57,7 +73,7 @@ export default function Cadastro2() {
                         placeholder="Compliance Hold"
                         placeholderTextColor="#B5AEAE"
                         autoCorrect={false}
-                        onChangeText={() => { }}
+                        onChangeText={text => setComplianceHold(text)}
                     />
                     <Text style={styles.title}>Credito Hold</Text>
                     <TextInput
@@ -65,7 +81,7 @@ export default function Cadastro2() {
                         placeholder="Credito Hold"
                         placeholderTextColor="#B5AEAE"
                         autoCorrect={false}
-                        onChangeText={() => { }}
+                        onChangeText={text => setCreditoHold(text)}
                     />
                     <Text style={styles.title}>OPN Status</Text>
                     <TextInput
@@ -73,10 +89,10 @@ export default function Cadastro2() {
                         placeholder="OPN Status"
                         placeholderTextColor="#B5AEAE"
                         autoCorrect={false}
-                        onChangeText={() => { }}
+                        onChangeText={text => setOPNStatus(text)}
                     />
                     
-                    <TouchableOpacity style={styles.button} onPress={() => navigate("Step 3", "Cadastro3")}>
+                    <TouchableOpacity style={styles.button} onPress={continuarStep}>
                         <Text style={styles.buttonText}>CONTINUAR</Text>
                     </TouchableOpacity>
                 </Animatable.View>

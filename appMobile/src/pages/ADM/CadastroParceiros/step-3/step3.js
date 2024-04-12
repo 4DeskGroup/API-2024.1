@@ -1,10 +1,11 @@
-import React, { useState } from "react";
-import { Image, KeyboardAvoidingView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View, Modal } from "react-native";
+import React, { useEffect, useState } from "react";
+import { Image, KeyboardAvoidingView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View, Modal, Alert } from "react-native";
 import * as Animatable from 'react-native-animatable';
 import Logo from "../../../LOGIN/components/logo";
 import Title from "../components/title";
 import styles from './style';
 import modalStyles from './modalStyles'; // Importe os estilos do modal
+import Axios from '../../../../Axios/axiosInstancia'
 
 // Componente para o seletor personalizado
 const CustomPicker = ({ options, selectedOptions, onSelectOption, onRemoveOption }) => {
@@ -50,8 +51,19 @@ const CustomPicker = ({ options, selectedOptions, onSelectOption, onRemoveOption
     );
 };
 
-export default function Cadastro3() {
+export default function CadastroStep3(parametros) {
+    const [expertises, setExpertises] = useState([]);
     const [selectedExpertises, setSelectedExpertises] = useState([]);
+    const [tipoFiliacao, setTipoFiliacao] = useState('')
+    const [OPNTrack, setOPNTrack] = useState('')
+    const [primeiraFiliacao, setPrimeiraFiliacao] = useState('')
+    const [slogan, setSlogan] = useState('')
+
+    const step1 = JSON.parse(parametros.route.params.Step1)
+    const step2 = JSON.parse(parametros.route.params.Step2)
+
+    console.log(step1)
+    console.log(step2)
 
     const handleExpertiseSelection = (expertise) => {
         setSelectedExpertises([...selectedExpertises, expertise]);
@@ -63,10 +75,91 @@ export default function Cadastro3() {
         setSelectedExpertises(updatedExpertises);
     };
 
+    // const GETExpertises = async () => {
+    //     try {
+    //         const response = await Axios.get(`/listarExpertises`, {});
+
+    //         if (response.data.Sucesso) {
+    //             const expertisesArray = response.data.Retorno;
+    //             console.log(expertisesArray)
+    //             setExpertises(expertisesArray);
+    //         }
+    //     } catch (error) {
+    //         console.error('Erro ao fazer a solicitação:', error);
+    //     }
+    // };
+
+    // useEffect(() => {
+    //     GETExpertises()
+    //     console.log('expertises: ' + expertises);
+    // }, [])
+
+    const cadastrarParceiro = async () => {
+        if (tipoFiliacao.trim() === '' || OPNTrack.trim() === '' || primeiraFiliacao.trim() === '' || slogan.trim() === '' || selectedExpertises.length === 0) {
+            Alert.alert(
+                'Campos vazios',
+                'Por favor, preencha todos os campos antes de continuar.'
+            );
+            return;
+        }
+
+        const endereco = {
+            logradouro: step1.Endereco,
+            cidade: step1.Cidade
+        }
+
+        const expertisesParceiro = [
+            {
+                idExpertise: "61f25c5b1f0b59015c1123a1",
+                nome: "Expertise 1",
+                descricao: "Descrição da Expertise 1",
+                cursosRealizados: [
+                    {
+                        "idCurso": "61f25c5b1f0b59015c1123b1",
+                        "nome": "Curso 1",
+                        "descricao": "Descrição do Curso 1"
+                    },
+                    {
+                        "idCurso": "61f25c5b1f0b59015c1123b2",
+                        "nome": "Curso 2",
+                        "descricao": "Descrição do Curso 2"
+                    }
+                ]
+            }
+        ]
+
+        const dadosParceiro = {
+            nome: step1.Nome,
+            pais: step1.Pais,
+            endereco: step1.Endereco,
+            cidade: step1.Cidade,
+            OPNAdminName: step2.NomeAdminOPN,
+            OPNAdminEmail: step2.EmailAdminOPN,
+            ComplianceHold: step2.ComplianceHold,
+            CreditHold: step2.CreditHold,
+            OPNStatus: step2.OPNStatus,
+            tipoMembro: tipoFiliacao,
+            OPNTrack: OPNTrack,
+            primeiroMembro: primeiraFiliacao,
+            slogan: slogan,
+            // ExpertisesParceiro: expertisesParceiro
+        }
+
+        const response = await Axios.post('/cadastrarParceiro', {
+            dadosParceiro
+        })
+
+        if (response.data.Sucesso) {
+            Alert.alert('Sucesso', `${response.data.msg}`)
+        } else {
+            Alert.alert(`${response.data.msg}`, `${response.data.erro}`)
+        }
+    }
+
     return (
         <KeyboardAvoidingView style={styles.background} behavior="padding">
             <ScrollView contentContainerStyle={styles.container}>
-                <Title/>
+                <Title />
                 <Animatable.View animation="slideInDown" style={styles.formContainer}>
                     <Text style={styles.title}>Tipo de filiação (membership)</Text>
                     <TextInput
@@ -74,7 +167,7 @@ export default function Cadastro3() {
                         placeholder="Tipo de filiação (membership)"
                         placeholderTextColor="#B5AEAE"
                         autoCorrect={false}
-                        onChangeText={() => { }}
+                        onChangeText={text => setTipoFiliacao(text)}
                     />
                     <Text style={styles.title}>Track da OPN</Text>
                     <TextInput
@@ -82,7 +175,7 @@ export default function Cadastro3() {
                         placeholder="Track da OPN"
                         placeholderTextColor="#B5AEAE"
                         autoCorrect={false}
-                        onChangeText={() => { }}
+                        onChangeText={text => setOPNTrack(text)}
                     />
                     <Text style={styles.title}>Primeira filiação (membership)</Text>
                     <TextInput
@@ -90,7 +183,7 @@ export default function Cadastro3() {
                         placeholder="Primeira filiação (membership)"
                         placeholderTextColor="#B5AEAE"
                         autoCorrect={false}
-                        onChangeText={() => { }}
+                        onChangeText={text => setPrimeiraFiliacao(text)}
                     />
                     <Text style={styles.title}>Slogan</Text>
                     <TextInput
@@ -98,22 +191,23 @@ export default function Cadastro3() {
                         placeholder="Slogan"
                         placeholderTextColor="#B5AEAE"
                         autoCorrect={false}
-                        onChangeText={() => { }}
+                        onChangeText={text => setSlogan(text)}
                     />
-                    
+
                     <Text style={styles.title}>Expertise de interesse</Text>
                     <CustomPicker
                         options={["Cloud Build", "Cloud Shell", "Cloud Service", "Industry Healthcare", "Licence & Hardware"]}
+                        // options={expertises}
                         selectedOptions={selectedExpertises}
                         onSelectOption={handleExpertiseSelection}
                         onRemoveOption={handleRemoveExpertise}
                     />
-                    <TouchableOpacity style={styles.button}>
+                    <TouchableOpacity style={styles.button} onPress={cadastrarParceiro}>
                         <Text style={styles.buttonText}>CONCLUIR</Text>
                     </TouchableOpacity>
                 </Animatable.View>
             </ScrollView>
-            <Logo/>
+            <Logo />
         </KeyboardAvoidingView>
     );
 }

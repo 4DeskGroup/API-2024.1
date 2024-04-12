@@ -29,6 +29,8 @@ export interface ParceiroInterface {
     pais: string;                           //Country
     // cidade: string;,                 // City
     endereco: Endereco[];                   // Address
+    // endereco: string;
+    // cidade: string;
     OPNAdminName: string;                   // OPN Admin Name
     OPNAdminEmail: string;                  // OPN Admin Email
     ComplianceHold: string;                 // Compliance Hold
@@ -42,30 +44,32 @@ export interface ParceiroInterface {
 }
 
 const CursosRealizadosSchema = new mongoose.Schema({
-    idCurso:{type: mongoose.Schema.Types.ObjectId, required: true, unique: true},
-    nome: { type: String, required: true },
-    descricao: { type: String, required: true }
+    idCurso:{type: mongoose.Schema.Types.ObjectId, required: false, unique: true},
+    nome: { type: String, required: false },
+    descricao: { type: String, required: false }
 })
 
 const ExpertisesParceiroSchema = new mongoose.Schema({
-    idExpertise:{type: mongoose.Schema.Types.ObjectId, required: true, unique: true},
-    nome: {type: String, required: true, index: true},
-    descricao: {type: String, required: true},
+    idExpertise:{type: mongoose.Schema.Types.ObjectId, required: false, unique: true},
+    nome: {type: String, required: false, index: true},
+    descricao: {type: String, required: false},
     cursosRealizados: [CursosRealizadosSchema]
 })
 
 const EnderecoSchema = new mongoose.Schema({
-    cep: {type: String, required: true},
+    // cep: {type: String, required: true},
     logradouro: {type: String, required: true},
-    bairro: {type: String, required: true},
+    // bairro: {type: String, required: true},
     cidade: {type: String, required: true},
-    uf: {type: String, required: true}
+    // uf: {type: String, required: true}
 })
 
 const ParceiroSchema = new mongoose.Schema({
     nome: {type: String, required: true, index: true},      //CompanyName
     pais: {type: String, required: true},                   //Country
     endereco: [EnderecoSchema],                             // Address
+    // endereco: {type: String, required: true},
+    // cidade: {type: String, required: true},
     OPNAdminName: {type: String, required: true},           // OPN Admin Name
     OPNAdminEmail: {type: String, required: true},          // OPN Admin Email
     ComplianceHold: {type: String, required: true},         // Compliance Hold

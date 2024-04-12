@@ -1,5 +1,6 @@
 import express from 'express';
 import { DELExpertise, GETExpertiseByID, GETExpertises, SETExpertise } from '../services/expertiseServices';
+import { CursoInterface } from 'models/expertise';
 
 const routerExpertise = express.Router();
 
@@ -19,20 +20,19 @@ routerExpertise.get('/listarExpertises', async (req, res) => {
 
     if (result) {
         const expertiseLista = result.retornoExpertises
-
-        // Método com For padrãozão
-        if (expertiseLista) {
-            for (const expertise of expertiseLista) {
-                console.log(expertise._id.toString())      //Necessário o toString() para que o retorno seja somente os numeros (GUIDs) do ID.
-            }                                              //Caso não passe, ele retornará como new ObjectId('660be7fc9a32d90bf2ea35fa')
-        }
+        const listaExpertise: { expertiseID: string; nome: string; descricao: string; cursos: CursoInterface[]; }[] = [];
 
         // Método com for each
         expertiseLista?.forEach(expertise => {
-            console.log(expertise.cursos)
+            listaExpertise.push({
+                expertiseID: String(expertise._id),
+                nome: expertise.nome,
+                descricao: expertise.descricao,
+                cursos: expertise.cursos,
+            });
         })
 
-        res.send({ Sucesso: true, Retorno: expertiseLista })
+        res.send({ Sucesso: true, Retorno: listaExpertise})
     } else {
         res.send({ msg: "Erro ao buscar expertises.", Erro: result })
     }

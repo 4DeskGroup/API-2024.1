@@ -54,7 +54,7 @@ async function Login(dados) {
             if (usuarioEncontrado){
                 return {Sucesso: true, Usuario: usuarioEncontrado}
             } else {
-                return {Sucesso: false, Mensagem: "Usuário não existe"}
+                return {Sucesso: false, Mensagem: "E-mail ou senha incorretos."}
             }
         }
     } catch (erro) {

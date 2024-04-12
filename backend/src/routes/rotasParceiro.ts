@@ -61,12 +61,12 @@ routerParceiro.post('/atualizarCursosParceiro', async (req, res) => {
 
 routerParceiro.post('/cadastrarParceiro', async (req, res) => {
     const retorno = await SETParceiro(req.body)
-    const usuario = retorno?.Retorno
-    console.log(usuario?.nome)
+    const parceiro = retorno?.Retorno
+    console.log(parceiro?.nome)
     if (retorno?.Sucesso) {
         res.send({ msg: "Parceiro cadastrado com sucesso.", Sucesso: retorno.Sucesso, retornoUsuario: retorno.Retorno })
     } else {
-        res.send({ msg: "Erro ao cadastrar Usuario.", erro: retorno?.Erro })
+        res.send({ msg: "Erro ao cadastrar Parceiro.", erro: retorno?.Erro })
     }
 });
 

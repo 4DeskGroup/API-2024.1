@@ -72,7 +72,7 @@ routerUsuario.post('/login', async (req,res) => {
     if (result && result.Sucesso) {
         res.send({msg: "Login realizado com sucesso", Sucesso: true, Usuario: result.Usuario})
     } else {
-        res.send({msg: "Erro ao realizar login no sistema", Sucesso: false, Erro: result?.Erro})
+        res.send({msg: result?.Mensagem, Sucesso: false, Erro: result?.Erro})
     }
     
 })

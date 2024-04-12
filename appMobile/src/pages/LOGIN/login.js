@@ -2,39 +2,44 @@ import React, { useState } from "react";
 import { Image, KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View, Alert, ScrollView } from "react-native";
 import * as Animatable from 'react-native-animatable';
 import Logo from "./components/logo";
-// import navigate from "../RootNavigation";
+import Axios from '../../Axios/axiosInstancia'
+import navigate from "../../../RootNavigation";
 
 export default function Login() {
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
 
-    // const acessarSistema = async () => {
-    //     if (email.trim() === '' || senha.trim() === '') {
-    //         Alert.alert(
-    //             'Campos vazios',
-    //             'Por favor, preencha todos os campos antes de continuar.'
-    //         );
-    //         return;
-    //     }
+    const acessarSistema = async () => {
+        if (email.trim() === '' || senha.trim() === '') {
+            Alert.alert(
+                'Campos vazios',
+                'Por favor, preencha todos os campos antes de continuar.'
+            );
+            return;
+        }
 
-    //     const response = await Axios.post('http://<colocar o IP da sua máquina caso for testar rodando direto no seu celular>:3001/login', {
-    //          email: email,
-    //          senha: senha
-    //     });
+        const response = await Axios.post('/login', {
+            email: email,
+            senha: senha
+        });
 
-    //     if (response.data.Sucesso) {
-    //         const usuarioEncontrado = response.data.Usuario;
+        if (response.data.Sucesso) {
+            const usuarioEncontrado = response.data.Usuario;
+            let tipoUsuario = usuarioEncontrado.tipoUsuario
 
-    //         Alert.alert(
-    //             'Bem-vindo',
-    //             `Usuário logado: ${usuarioEncontrado.nome}`,
-    //         );
-    //     } else {
-    //         Alert.alert(
-    //             `${response.data.msg}: ${response.data.Erro}`
-    //         );
-    //     }
-    // };
+            if (tipoUsuario === 'Administrador') {
+                navigate('HomeADM')
+            } else if (tipoUsuario === 'ConsultorAlianca') {
+                navigate('Parceiros')
+            }
+
+        } else {
+            Alert.alert(
+                'Falha na tentativa de login',
+                `${response.data.msg}`
+            );
+        }
+    };
 
     return (
         <KeyboardAvoidingView style={styles.background} behavior="padding">
@@ -60,7 +65,7 @@ export default function Login() {
                         autoCorrect={false}
                         onChangeText={text => setSenha(text)}
                     />
-                    <TouchableOpacity style={styles.button} >
+                    <TouchableOpacity style={styles.button} onPress={acessarSistema}>
                         <Text style={styles.buttonText}>LOGIN</Text>
                     </TouchableOpacity>
                 </Animatable.View>

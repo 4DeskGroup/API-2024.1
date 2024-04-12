@@ -1,16 +1,14 @@
 import React from "react";
 import { Image, KeyboardAvoidingView, TouchableOpacity, View, Text, StyleSheet, Dimensions } from "react-native";
 import * as Animatable from 'react-native-animatable';
-// import { useNavigation } from '@react-navigation/native';
+import navigate from "../../../RootNavigation";
 
 const screenWidth = Dimensions.get('window').width;
 
 export default function Welcome() {
-    // const navigation = useNavigation();
-
-    // const handleNavigate = (screen, route) => {
-    //     navigation.navigate(screen, route);
-    // };
+    function irPara() {
+        navigate('Login')
+    }
 
     return (
         <KeyboardAvoidingView style={styles.container} behavior="padding">
@@ -20,14 +18,9 @@ export default function Welcome() {
                     style={styles.logo}
                 />
             </Animatable.View>
-            
-            {/*TESTE PARA CADASTRO DE PARCEIRO, É SÓ REMOVER ESSA LINHAS 19 AO 21 DPS*/} 
-            <TouchableOpacity style={styles.button} onPress={() => handleNavigate("Step 1", "Cadastro")}>
-                <Text style={styles.buttonText}>TESTE CADASTRO PARCEIRO</Text>
-            </TouchableOpacity>
 
             <Animatable.View animation="slideInDown" style={styles.buttonContainer}>
-                <TouchableOpacity style={styles.button} onPress={() => handleNavigate("Login", "Login")}>
+                <TouchableOpacity style={styles.button} onPress={() => irPara()}>
                     <Text style={styles.buttonText}>LOGIN</Text>
                 </TouchableOpacity>
             </Animatable.View>

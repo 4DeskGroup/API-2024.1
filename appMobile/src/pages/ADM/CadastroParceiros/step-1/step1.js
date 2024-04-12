@@ -1,33 +1,38 @@
 import React, { useState } from "react";
 import { Image, KeyboardAvoidingView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View, Alert } from "react-native";
 import * as Animatable from 'react-native-animatable';
-// import { sessao } from "../storage/sessao";
 import Logo from "../../../LOGIN/components/logo";
 import Title from "../components/title";
 import styles from './style';
-// import navigate from "../RootNavigation";
+import navigate from "../../../../../RootNavigation";
 
-export default function Cadastro() {
-    // const [companyID, setCompanyID] = useState('');
-    // const [nome, setNome] = useState('');
-    // const [pais, setPais] = useState('');
-    // const [cidade, setCidade] = useState('');
-    // const [endereco, setEndereco] = useState('');
+export default function CadastroStep1() {
+    const [companyID, setCompanyID] = useState('');
+    const [nome, setNome] = useState('');
+    const [pais, setPais] = useState('');
+    const [cidade, setCidade] = useState('');
+    const [endereco, setEndereco] = useState('');
 
-    // const continuarStep = () => {
-    //     if (companyID.trim() === '' || nome.trim() === '' || pais.trim() === '' || cidade.trim() === '' || endereco.trim() === '') {
-    //         Alert.alert(
-    //             'Campos vazios',
-    //             'Por favor, preencha todos os campos antes de continuar.'
-    //         );
-    //         return;
-    //     }
-    //     const dadosStep1 = [companyID, nome, pais, cidade, endereco];
-    //     sessao.set('step1', JSON.stringify(dadosStep1));
-    //     const dados = sessao.getString('step1');
-    //     console.log(dados ? JSON.parse(dados) : {});
-    // };
-    
+    const continuarStep = () => {
+        if (companyID.trim() === '' || nome.trim() === '' || pais.trim() === '' || cidade.trim() === '' || endereco.trim() === '') {
+            Alert.alert(
+                'Campos vazios',
+                'Por favor, preencha todos os campos antes de continuar.'
+            );
+            return;
+        }
+
+        const dadosStep1 = {
+            CompanyID: companyID,
+            Nome: nome,
+            Pais: pais,
+            Cidade: cidade,
+            Endereco: endereco
+        };
+
+        navigate('CadastroStep2', dadosStep1)
+    };
+
     return (
         <KeyboardAvoidingView style={styles.background} behavior="padding">
             <ScrollView contentContainerStyle={styles.container}>
@@ -35,7 +40,7 @@ export default function Cadastro() {
                     <Text style={styles.headerText}>Registre um parceiro</Text>
                     <Text style={styles.headerText2}>Cadastre um parceiro e acompanhe suas expertises</Text>
                 </Animatable.View> */}
-                <Title/>
+                <Title />
                 <Animatable.View animation="slideInDown" style={styles.formContainer}>
                     <Text style={styles.title}>ID da companhia</Text>
                     <TextInput
@@ -78,7 +83,7 @@ export default function Cadastro() {
                         onChangeText={text => setEndereco(text)}
                     />
 
-                    <TouchableOpacity style={styles.button}>
+                    <TouchableOpacity style={styles.button} onPress={continuarStep}>
                         <Text style={styles.buttonText}>CONTINUAR</Text>
                     </TouchableOpacity>
                 </Animatable.View>
@@ -89,7 +94,7 @@ export default function Cadastro() {
                     source={require('../img/oracle.png')}
                     style={styles.logo} />
             </View> */}
-            <Logo/>
+            <Logo />
         </KeyboardAvoidingView>
     );
 }

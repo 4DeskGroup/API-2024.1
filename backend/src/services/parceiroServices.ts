@@ -8,9 +8,10 @@ async function SETParceiro(dadosParceiro) {
         if (dadosParceiro) {
             console.log('LENGHT:  '+ dadosParceiro.ExpertisesParceiro.length);
             
-            if(dadosParceiro.ExpertisesParceiro.length === 0)return {Sucesso: false, Erro: 'Selecione uma expertise'}
+            // if(dadosParceiro.ExpertisesParceiro.length === 0)return {Sucesso: false, Erro: 'Selecione uma expertise'}
 
             const parceiro = await Parceiro.create(dadosParceiro)
+            console.log(parceiro)
             return { Sucesso: true, Retorno: parceiro }
         }
     } catch (erro) {
