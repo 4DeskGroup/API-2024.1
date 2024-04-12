@@ -3,9 +3,12 @@ import { GETExpertiseByID, GETExpertises } from "./expertiseServices";
 
 async function SETParceiro(dadosParceiro) {
     try {
+        console.log(dadosParceiro);
+        
         if (dadosParceiro) {
-
-            if(dadosParceiro.ExpertisesParceiro.length > 0)return {Sucesso: false, Erro: 'Selecione uma expertise'}
+            console.log('LENGHT:  '+ dadosParceiro.ExpertisesParceiro.length);
+            
+            if(dadosParceiro.ExpertisesParceiro.length === 0)return {Sucesso: false, Erro: 'Selecione uma expertise'}
 
             const parceiro = await Parceiro.create(dadosParceiro)
             return { Sucesso: true, Retorno: parceiro }

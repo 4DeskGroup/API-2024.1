@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import styles from './style';
 import axios from '../../../../../Axios/axiosInstancia';
+import navigate from '../../../../../../RootNavigation';
 
 export default function Forms() {
   const [lista, setLista] = useState([]);
@@ -18,9 +19,7 @@ export default function Forms() {
     try {
       const response = await axios.get(`/GETParceirosNomeId`, {
       });
-      console.log(JSON.stringify(response.data));
       if (response.data) {
-        console.log('response.data.Parceiros:  '+ JSON.stringify(response.data.Parceiros));
         setLista(response.data.Parceiros);
       }
     } catch (error) {
@@ -33,8 +32,8 @@ export default function Forms() {
     console.log('LISTA' + lista);
   }, [])
 
-  function button(nome) {
-    console.log('LISTA BOTAO: '+ nome);
+  function button(idParceiro) {
+    navigate('ProgressoExpertise', {IdParceiro: idParceiro})
   }
 
   return (
@@ -47,7 +46,7 @@ export default function Forms() {
             key={index}
             style={styles.buttonMenu}
             onPress={() => {
-              button(item.parceiroNome);
+              button(item.idParceiro);
             }}>
             <View style={styles.buttonContainer}>
               <View style={styles.buttonText}>
