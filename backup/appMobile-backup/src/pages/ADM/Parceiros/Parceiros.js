@@ -4,7 +4,7 @@ import {Animated, ScrollView, StyleSheet, Text, View} from 'react-native';
 import Title from './Components/Title/Title';
 import Forms from './Components/Forms/Forms';
 import Main from './Components/Main/Main';
-import Navbar from '../../../components/navbar';
+import NavbarUsers from '../../../components/navbar/Users';
 
 
 export default function Parceiros(){
@@ -14,7 +14,7 @@ export default function Parceiros(){
       <Title/>
       <Main/>
       </ScrollView>
-      <Navbar/>
+      <NavbarUsers/>
     </View>
   );
 }
