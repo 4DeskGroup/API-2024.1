@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
 },
 icon: {
    width:'50%',
-   height:'80%',
+   height:'50%',
    borderRadius: 8
 }
 })

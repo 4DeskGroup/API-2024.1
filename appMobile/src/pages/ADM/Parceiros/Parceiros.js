@@ -10,10 +10,8 @@ import Navbar from '../../../components/navbar';
 export default function Parceiros(){
   return(
     <View style = {styles.body}>
-      <ScrollView>
       <Title/>
       <Main/>
-      </ScrollView>
       <Navbar/>
     </View>
   );
