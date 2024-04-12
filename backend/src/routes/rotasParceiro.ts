@@ -58,9 +58,8 @@ routerParceiro.post('/atualizarCursosParceiro', async (req, res) => {
 });
 
 
-
 routerParceiro.post('/cadastrarParceiro', async (req, res) => {
-    const retorno = await SETParceiro(req.body)
+    const retorno = await SETParceiro(req.body.dadosParceiro)
     const parceiro = retorno?.Retorno
     console.log(parceiro?.nome)
     if (retorno?.Sucesso) {

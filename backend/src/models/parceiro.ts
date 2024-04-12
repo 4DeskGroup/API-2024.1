@@ -44,24 +44,24 @@ export interface ParceiroInterface {
 }
 
 const CursosRealizadosSchema = new mongoose.Schema({
-    idCurso:{type: mongoose.Schema.Types.ObjectId, required: false, unique: true},
+    idCurso:{type: mongoose.Schema.Types.ObjectId, required: false},
     nome: { type: String, required: false },
     descricao: { type: String, required: false }
 })
 
 const ExpertisesParceiroSchema = new mongoose.Schema({
-    idExpertise:{type: mongoose.Schema.Types.ObjectId, required: false, unique: true},
+    idExpertise:{type: mongoose.Schema.Types.ObjectId, required: false},
     nome: {type: String, required: false, index: true},
     descricao: {type: String, required: false},
     cursosRealizados: [CursosRealizadosSchema]
 })
 
 const EnderecoSchema = new mongoose.Schema({
-    // cep: {type: String, required: true},
+    cep: {type: String, required: true},
     logradouro: {type: String, required: true},
-    // bairro: {type: String, required: true},
+    bairro: {type: String, required: true},
     cidade: {type: String, required: true},
-    // uf: {type: String, required: true}
+    uf: {type: String, required: true}
 })
 
 const ParceiroSchema = new mongoose.Schema({

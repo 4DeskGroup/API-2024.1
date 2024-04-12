@@ -38,6 +38,29 @@ routerExpertise.get('/listarExpertises', async (req, res) => {
     }
 });
 
+
+routerExpertise.get('/listarExpertisesNomeDesID', async (req, res) => {
+    const result = await GETExpertises()
+
+    if (result) {
+        const expertiseLista = result.retornoExpertises
+        const listaExpertise: { expertiseID: string; nome: string; descricao: string; }[] = [];
+
+        // Método com for each
+        expertiseLista?.forEach(expertise => {
+            listaExpertise.push({
+                expertiseID: String(expertise._id),
+                nome: expertise.nome,
+                descricao: expertise.descricao,
+            });
+        })
+
+        res.send({ Sucesso: true, Retorno: listaExpertise})
+    } else {
+        res.send({ msg: "Erro ao buscar expertises.", Erro: result })
+    }
+});
+
 routerExpertise.get('/getExpertiseByID/:id', async (req, res) => {
     const { id } = req.params
 
