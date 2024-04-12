@@ -14,8 +14,6 @@ export default function Forms(params) {
         IdExpertise: idExpertise
       });
 
-      console.log('RESPONSE: ', response.data);
-
       if (response.data) {
         setLista(response.data.parceiroExpertiseCursos);
       }
@@ -25,11 +23,8 @@ export default function Forms(params) {
   };
 
   useEffect(() => {
-
     GETInicio(params.params.IdParceiro, params.params.IdExpertise)
-
     console.log('LISTA' + lista);
-
   }, [])
 
 

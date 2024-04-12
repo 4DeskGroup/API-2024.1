@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     width: '91.5%',
-    height: '15%',
+    height: '30%',
     backgroundColor: '#FFFFFF',
     paddingTop: '5%',
     paddingBottom: '5%',
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: '#2F2A4E',
     fontWeight: 'bold',
-    marginLeft: '10%'
+    marginLeft: '20%'
  },
 
  subtitleButtonMenu: {
