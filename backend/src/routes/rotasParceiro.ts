@@ -1,5 +1,5 @@
 import express from 'express';
-import { atualizarCursosParceiro, GETCursoExpertisesParceiro, GETExpertisesPorcentagem, GETParceirosNomeId, SETParceiro } from '../services/parceiroServices';
+import { atualizarCursosParceiro, atualizarCursosParceiroPorIsCursoFeito, GETCursoExpertisesParceiro, GETExpertisesPorcentagem, GETParceirosNomeId, SETParceiro } from '../services/parceiroServices';
 
 const routerParceiro = express.Router();
 
@@ -69,6 +69,20 @@ routerParceiro.post('/cadastrarParceiro', async (req, res) => {
         res.send({ msg: "Erro ao cadastrar Usuario.", erro: retorno?.Erro })
     }
 });
+
+routerParceiro.post('/atualizarCursosParceiroPorIsCursoFeito', async (req, res) => {
+    const lista = req.body.lista
+    const IdParceiro = req.body.IdParceiro
+    
+    const retorno = await atualizarCursosParceiroPorIsCursoFeito(lista, IdParceiro)
+
+    if (retorno?.Sucesso) {
+        res.send({ msg: "Cursos atualizados com sucesso.", Sucesso: retorno.Sucesso })
+    } else {
+        res.send({ msg: "Erro ao cadastrar Usuario.", erro: retorno?.Erro })
+    }
+});
+
 
 
 export default routerParceiro;

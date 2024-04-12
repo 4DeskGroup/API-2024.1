@@ -34,9 +34,27 @@ export default function Forms(params) {
     setLista(newLista);
   }
 
+  const AtualizarCursos = async (IdParceiro, lista) => {
+    try {
+      const response = await axios.post(`/atualizarCursosParceiroPorIsCursoFeito`, {
+        lista: lista,
+        IdParceiro: IdParceiro
+      });
+
+      console.log('RETORNO DA LISTA:  '+ JSON.stringify(lista));
+      console.log("RETORNO DO RETORNO:  "+ JSON.stringify(response.data));
+      if (response.data) {
+        console.log(response.data.Sucesso);
+      }
+    } catch (error) {
+      console.error('Erro ao fazer a solicitação:', error);
+    }
+  };
+
   function button() {
-    console.log(lista);
+    AtualizarCursos(params.params.IdParceiro, lista)
   }
+
   return (
     <View style={styles.formContext}>
       <View style={styles.form}>

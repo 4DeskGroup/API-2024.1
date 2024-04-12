@@ -72,7 +72,7 @@ async function GETCursoExpertisesParceiro(idParceiro: string, idExpertise: strin
             throw new Error("Dados da expertise não encontrados");
         }
 
-        const parceiroExpertiseCursos: { expertiseId: string; cursoId: string; cursoNome: string; isCursoFeito: boolean }[] = [];
+        const parceiroExpertiseCursos: { expertiseId: string; cursoId: string; cursoNome: string; cursoDescricao: string; isCursoFeito: boolean }[] = [];
 
         parceiroRetorno.ExpertisesParceiro.forEach(parceiroExpertise => {
 
@@ -83,6 +83,7 @@ async function GETCursoExpertisesParceiro(idParceiro: string, idExpertise: strin
                     parceiroExpertiseCursos.push({
                         cursoId: String(expertiseCurso._id),
                         cursoNome: expertiseCurso.nome,
+                        cursoDescricao: expertiseCurso.descricao,
                         expertiseId: String(expertiseGET._id),
                         isCursoFeito: cursoFeito
                     });
@@ -184,7 +185,7 @@ async function atualizarCursosParceiroPorIsCursoFeito(parceiroExpertiseCursos, i
     //parceiroExpertiseNomePorcentagemId: { expertise: string; porcentagem: string; idExpertise: string }[] = []; -- este é o parceiroExpertiseCursos
     try {
         
-        for (const { expertiseId, cursoId, cursoNome, isCursoFeito } of parceiroExpertiseCursos) {
+        for (const { expertiseId, cursoId, cursoNome, cursoDescricao, isCursoFeito } of parceiroExpertiseCursos) {
             const parceiro = await Parceiro.findById(idParceiro);
 
             if (!parceiro) {
@@ -205,7 +206,7 @@ async function atualizarCursosParceiroPorIsCursoFeito(parceiroExpertiseCursos, i
                     expertiseParceiro.cursosRealizados.push({
                         idCurso: cursoId,
                         nome: cursoNome,
-                        descricao: ""
+                        descricao: cursoDescricao
                     });
                 }
             } else {
@@ -223,4 +224,4 @@ async function atualizarCursosParceiroPorIsCursoFeito(parceiroExpertiseCursos, i
 }
 
 
-export {SETParceiro, GETExpertisesPorcentagem, GETParceiros, GETParceirosNomeId, GETCursoExpertisesParceiro, atualizarCursosParceiro}
+export {SETParceiro, GETExpertisesPorcentagem, GETParceiros, GETParceirosNomeId, GETCursoExpertisesParceiro, atualizarCursosParceiro, atualizarCursosParceiroPorIsCursoFeito}
