@@ -19,7 +19,8 @@
 
 # :dart: Objetivo do projeto
 
-<p align="left"> Objetivo </p>
+<p align="left"> Desenvolver um sistema de gestão de parceiros para a Oracle. Este sistema será responsável por cadastrar novos parceiros, gerenciar atualizações de informações, acompanhar o desenvolvimento 
+de conhecimento dos parceiros e fornecer relatórios relevantes – em plataforma mobile. </p>
 
 ## ⏳ Planejamento de entregas
 
