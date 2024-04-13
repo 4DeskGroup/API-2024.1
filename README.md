@@ -39,7 +39,7 @@
 # :computer: Tecnologias 
 
 <div align="left">
-  <img src="" width="500" height="300" alt="tecnologias">
+  <img src="https://github.com/4DeskGroup/API-2024-1/blob/main/docs/img/tecnologias.png" width="550" height="320" alt="tecnologias">
 
  </div>
 
