@@ -224,4 +224,30 @@ async function atualizarCursosParceiroPorIsCursoFeito(parceiroExpertiseCursos, i
 }
 
 
-export {SETParceiro, GETExpertisesPorcentagem, GETParceiros, GETParceirosNomeId, GETCursoExpertisesParceiro, atualizarCursosParceiro, atualizarCursosParceiroPorIsCursoFeito}
+async function cadastrarNovaExpertiseParceiro(idParceiro, expertise) {
+    try {
+        // Verifique se o parceiro existe
+        const parceiro = await Parceiro.findById(idParceiro);
+        if (!parceiro) {
+            throw new Error('Parceiro não encontrado');
+        }
+
+        // Verifique se a expertise já existe no parceiro
+        const expertiseExistente = parceiro.ExpertisesParceiro.find(exp => exp.nome === expertise.nome);
+        if (expertiseExistente) {
+            throw new Error('Expertise já cadastrada para este parceiro');
+        }
+
+        // Adicione a nova expertise ao parceiro e salve
+        parceiro.ExpertisesParceiro.push(expertise);
+        await parceiro.save();
+        console.log('Expertise cadastrada com sucesso para o parceiro:', parceiro.nome);
+    } catch (error) {
+        console.error('Erro ao cadastrar expertise:', error);
+    }
+}
+
+
+export {SETParceiro, GETExpertisesPorcentagem, GETParceiros, GETParceirosNomeId,
+     GETCursoExpertisesParceiro, atualizarCursosParceiro,
+     atualizarCursosParceiroPorIsCursoFeito, cadastrarNovaExpertiseParceiro}

@@ -1,5 +1,5 @@
 import express from 'express';
-import { atualizarCursosParceiro, atualizarCursosParceiroPorIsCursoFeito, GETCursoExpertisesParceiro, GETExpertisesPorcentagem, GETParceirosNomeId, SETParceiro } from '../services/parceiroServices';
+import { atualizarCursosParceiro, atualizarCursosParceiroPorIsCursoFeito, cadastrarNovaExpertiseParceiro, GETCursoExpertisesParceiro, GETExpertisesPorcentagem, GETParceirosNomeId, SETParceiro } from '../services/parceiroServices';
 
 const routerParceiro = express.Router();
 
@@ -79,6 +79,20 @@ routerParceiro.post('/atualizarCursosParceiroPorIsCursoFeito', async (req, res) 
         res.send({ msg: "Cursos atualizados com sucesso.", Sucesso: retorno.Sucesso })
     } else {
         res.send({ msg: "Erro ao cadastrar Usuario.", erro: retorno?.Erro })
+    }
+});
+
+routerParceiro.post('/cadastrarExpertiseParceiro', async (req, res) => {
+    try {
+        const idParceiro = req.body.idParceiro;
+        const novaExpertise = req.body.novaExpertise; // Supondo que os dados da nova expertise estejam no corpo da requisição
+
+        await cadastrarNovaExpertiseParceiro(idParceiro, novaExpertise);
+
+        res.status(200).send({ msg: "Expertise cadastrada com sucesso." });
+    } catch (error) {
+        console.error('Erro ao cadastrar expertise:', error);
+        res.status(500).send({ msg: "Erro ao cadastrar expertise.", erro: error });
     }
 });
 

@@ -119,11 +119,10 @@ export default function CadastroStep3(parametros) {
 
         const expertisesParceiro = [
             {
-                idExpertise: "61f25c5b1f0b59015c1123a1",
-                nome: "Expertise 1",
-                descricao: "Descrição da Expertise 1",
-                cursosRealizados: [
-                ]
+                idExpertise: "660be7fc9a32d90bf2ea35fa",
+                nome: "Cloud Build",
+                descricao: "Cloud Build",
+                cursosRealizados: []
             }
         ];
 
@@ -144,7 +143,6 @@ export default function CadastroStep3(parametros) {
         };
 
         console.log('AAAAAAAAAAAAAAAAA:  ' + JSON.stringify(dadosParceiro));
-
 
         const response = await Axios.post('/cadastrarParceiro', {
             dadosParceiro
