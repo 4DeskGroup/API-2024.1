@@ -6,6 +6,7 @@ import Title from "../components/title";
 import styles from './style';
 import modalStyles from './modalStyles'; // Importe os estilos do modal
 import Axios from '../../../../Axios/axiosInstancia'
+import navigate from "../../../../../RootNavigation";
 
 // Componente para o seletor personalizado
 const CustomPicker = ({ options, selectedOptions, onSelectOption, onRemoveOption }) => {
@@ -150,6 +151,7 @@ export default function CadastroStep3(parametros) {
 
         if (response.data.Sucesso) {
             Alert.alert('Sucesso', `${response.data.msg}`)
+            navigate('HomeADM')
         } else {
             Alert.alert(`${response.data.msg}`, `${response.data.erro}`)
         }

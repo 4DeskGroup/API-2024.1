@@ -16,7 +16,7 @@ console.log('route.params.IdParceiro:  '+ JSON.stringify(route.params.IdParceiro
   return(
     <View style = {styles.body}>
       <Return/>
-      <Title/>
+      <Title params={route.params.IdParceiro}/>
       <Main params={route.params.IdParceiro}/>
       <NavbarUsers/>
     </View>

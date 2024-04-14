@@ -1,5 +1,5 @@
 import express from 'express';
-import { atualizarCursosParceiro, atualizarCursosParceiroPorIsCursoFeito, cadastrarNovaExpertiseParceiro, GETCursoExpertisesParceiro, GETExpertisesPorcentagem, GETParceirosNomeId, SETParceiro } from '../services/parceiroServices';
+import { atualizarCursosParceiro, atualizarCursosParceiroPorIsCursoFeito, cadastrarNovaExpertiseParceiro, GETCursoExpertisesParceiro, GETExpertisesPorcentagem, GETParceiroByID, GETParceirosNomeId, SETParceiro } from '../services/parceiroServices';
 
 const routerParceiro = express.Router();
 
@@ -96,6 +96,17 @@ routerParceiro.post('/cadastrarExpertiseParceiro', async (req, res) => {
     }
 });
 
+routerParceiro.get('/getParceiroByID/:id', async (req, res) => {
+    const { id } = req.params
 
+    const result = await GETParceiroByID(id)
+
+    if (result && result.Sucesso) {
+        const parceiro = result.retorno
+        res.send({ Sucesso: true, Parceiro: parceiro })
+    } else {
+        res.send({ msg: "Erro ao buscar parceiro.", Erro: result })
+    }
+});
 
 export default routerParceiro;

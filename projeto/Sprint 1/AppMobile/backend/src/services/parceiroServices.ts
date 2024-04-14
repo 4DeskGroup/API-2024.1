@@ -247,7 +247,18 @@ async function cadastrarNovaExpertiseParceiro(idParceiro, expertise) {
     }
 }
 
+async function GETParceiroByID(id) {
+    try{
+        // O .lean() faz o retorno do resultado já em um formato de objeto javascript
+        const parceiro = await Parceiro.findById(id).lean()
+        if (parceiro){
+            return {Sucesso: true, retorno: parceiro}
+        }
+    } catch (erro) {
+        return {Sucesso: false, Erro: erro}
+    }
+}
 
 export {SETParceiro, GETExpertisesPorcentagem, GETParceiros, GETParceirosNomeId,
      GETCursoExpertisesParceiro, atualizarCursosParceiro,
-     atualizarCursosParceiroPorIsCursoFeito, cadastrarNovaExpertiseParceiro}
+     atualizarCursosParceiroPorIsCursoFeito, cadastrarNovaExpertiseParceiro, GETParceiroByID}

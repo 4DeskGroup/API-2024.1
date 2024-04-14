@@ -13,7 +13,7 @@ export default function ExpertiseCurso({route}){
   return(
     <View style = {styles.body}>
       <Return/>
-      <Title/>
+      <Title params={route.params}/>
       <Main params={route.params} />
       <NavbarUsers/>
     </View>

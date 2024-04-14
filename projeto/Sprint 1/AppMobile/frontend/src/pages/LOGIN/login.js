@@ -4,10 +4,12 @@ import * as Animatable from 'react-native-animatable';
 import Logo from "./components/logo";
 import Axios from '../../Axios/axiosInstancia'
 import navigate from "../../../RootNavigation";
+import Icon from 'react-native-vector-icons/Ionicons';
 
 export default function Login() {
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
+    const [mostrarSenha, setMostrarSenha] = useState(false);
 
     const acessarSistema = async () => {
         if (email.trim() === '' || senha.trim() === '') {
@@ -41,6 +43,10 @@ export default function Login() {
         }
     };
 
+    const toggleMostrarSenha = () => {
+        setMostrarSenha(!mostrarSenha);
+    };
+
     return (
         <KeyboardAvoidingView style={styles.background} behavior="padding">
             <ScrollView contentContainerStyle={styles.scrollView}>
@@ -64,7 +70,11 @@ export default function Login() {
                         placeholderTextColor="#B5AEAE"
                         autoCorrect={false}
                         onChangeText={text => setSenha(text)}
+                        secureTextEntry={!mostrarSenha}
                     />
+                    <TouchableOpacity onPress={toggleMostrarSenha} style={styles.eyeIcon}>
+                        <Text style={styles.eyeIconText}>{mostrarSenha ? '🔓' : '🔒'}</Text>
+                    </TouchableOpacity>
                     <TouchableOpacity style={styles.button} onPress={acessarSistema}>
                         <Text style={styles.buttonText}>LOGIN</Text>
                     </TouchableOpacity>
@@ -166,4 +176,12 @@ const styles = StyleSheet.create({
         height: 20,
         marginBottom: '5%',
     },
+    eyeIcon: {
+        position: 'absolute',
+        right: 35,
+        top: 130 
+    },
+    eyeIconText: {
+        fontSize: 20, // Ajuste o tamanho do emoji conforme necessário
+    }
 });
