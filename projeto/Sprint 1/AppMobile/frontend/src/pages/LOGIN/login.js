@@ -4,7 +4,7 @@ import * as Animatable from 'react-native-animatable';
 import Logo from "./components/logo";
 import Axios from '../../Axios/axiosInstancia'
 import navigate from "../../../RootNavigation";
-import Icon from 'react-native-vector-icons/Ionicons';
+//import Icon from 'react-native-vector-icons/Ionicons';
 
 export default function Login() {
     const [email, setEmail] = useState('');
