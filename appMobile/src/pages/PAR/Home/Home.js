@@ -5,16 +5,16 @@ import {
   Text,
   View,
 } from 'react-native';
-import Navbar from './src/components/Navbar';
 import Title from './components/Title/Title';
 import Main from './components/Main/Forms';
+import NavbarHome from '../../../components/navbar/Home';
 
 export default function Home(){
   return(
     <View style = {styles.body}>
       <Title/>
       <Main/>
-      <Navbar/>
+      <NavbarHome/>
     </View>
   );
 }

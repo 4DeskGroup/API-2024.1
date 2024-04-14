@@ -7,6 +7,7 @@ import {
   View,
 } from 'react-native';
 import Return from './Return/index';
+import NavbarUsers from '../../Home/components/navbar/Users';
 
 export default function ExpertiseCurso({route}){
   return(
@@ -14,6 +15,7 @@ export default function ExpertiseCurso({route}){
       <Return/>
       <Title/>
       <Main params={route.params} />
+      <NavbarUsers/>
     </View>
   );
 }

@@ -8,6 +8,7 @@ import {
 import Return from './return/Return/index';
 import Title from './title/index';
 import Main from './main/index';
+import NavbarUsers from '../Home/components/navbar/Users';
 
 
 export default function ProgressoExpertise({route}){
@@ -17,6 +18,7 @@ console.log('route.params.IdParceiro:  '+ JSON.stringify(route.params.IdParceiro
       <Return/>
       <Title/>
       <Main params={route.params.IdParceiro}/>
+      <NavbarUsers/>
     </View>
   );
 }

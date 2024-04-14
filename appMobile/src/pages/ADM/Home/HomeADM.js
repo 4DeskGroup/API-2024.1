@@ -3,7 +3,7 @@ import React from 'react';
 import {Animated, ScrollView, StyleSheet, Text, View} from 'react-native';
 import Title from './components/Title/Title';
 import Main from './components/Main/Main';
-import Navbar from '../../../components/navbar';
+import NavbarHome from './components/navbar/Home';
 
 export default function HomeADM(){
   return(
@@ -12,7 +12,7 @@ export default function HomeADM(){
       <Title/>
       <Main/>
       </ScrollView>
-      <Navbar/>
+      <NavbarHome/>
     </View>
   );
 }

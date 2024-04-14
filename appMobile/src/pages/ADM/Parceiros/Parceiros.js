@@ -2,9 +2,8 @@ import React from 'react';
 
 import {Animated, ScrollView, StyleSheet, Text, View} from 'react-native';
 import Title from './Components/Title/Title';
-import Forms from './Components/Forms/Forms';
 import Main from './Components/Main/Main';
-import Navbar from '../../../components/navbar';
+import NavbarUsers from '../Home/components/navbar/Users';
 
 
 export default function Parceiros(){
@@ -12,7 +11,7 @@ export default function Parceiros(){
     <View style = {styles.body}>
       <Title/>
       <Main/>
-      <Navbar/>
+      <NavbarUsers/>
     </View>
   );
 }
