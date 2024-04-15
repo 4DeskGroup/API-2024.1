@@ -14,7 +14,7 @@
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 <div align="center">
  
-[O Projeto](https://github.com/4DeskGroup/API-2024-1/edit/main/README.md) • [Calendário Entrega Sprints](https://github.com/4DeskGroup/API-2024-1/edit/main/README.md#-planejamento-de-entregas) •
+[O Projeto](https://github.com/4DeskGroup/API-2024-1/edit/main) • [Calendário Entrega Sprints](https://github.com/4DeskGroup/API-2024-1/edit/main/README.md#-planejamento-de-entregas) •
 </div>
 
 # :dart: Objetivo do projeto
