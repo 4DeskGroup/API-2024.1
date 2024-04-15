@@ -2,7 +2,7 @@
 
 ## Resumo
 
-<p> No primeiro estágio do projeto, a equipe estabelece com o cliente a entrega de um produto viável mínimo, ou seja, que tenha funcionalidade de modo a suprir minimamente suas necessidades. Dessa maneira, o grupo visou entregar login, cadastro de parceiros, visualizção dos parceiros e suas expertises.</p>
+<p> No primeiro estágio do projeto, a equipe estabelece com o cliente a entrega de um produto viável mínimo, ou seja, que tenha funcionalidade de modo a suprir minimamente suas necessidades. Dessa maneira, o grupo visou entregar login, cadastro de parceiros, visualização dos parceiros e suas expertises.</p>
 
 ## Backlog do produto :bulb:
 ### Requisitos Funcionais
