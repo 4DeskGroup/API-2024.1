@@ -22,13 +22,14 @@
 
 ## Demonstração do Login 💻:
 ### Administrador
-![image](https://github.com/4DeskGroup/API-2024.1/blob/main/docs/gifs%20-%20s1/login-adm.gif?raw=true)
+<img src="https://github.com/4DeskGroup/API-2024.1/blob/main/docs/gifs%20-%20s1/login-adm.gif?raw=true" alt="Descrição da imagem" width="200" height="400">
 
 ## Consultor de alianças
-![image](https://github.com/4DeskGroup/API-2024.1/blob/main/docs/gifs%20-%20s1/consultor-lista-parceiros-atualizar-expertises.gif?raw=true)
+<img src="https://github.com/4DeskGroup/API-2024.1/blob/main/docs/gifs%20-%20s1/consultor-lista-parceiros-atualizar-expertises.gif?raw=true" alt="Descrição da imagem" width="200" height="400">
 
 ## Demonstração do Registro de Parceiros:
-![image](https://github.com/4DeskGroup/API-2024.1/blob/main/docs/gifs%20-%20s1/registro-parceiro.gif?raw=true)
+<img src="https://github.com/4DeskGroup/API-2024.1/blob/main/docs/gifs%20-%20s1/registro-parceiro.gif?raw=true" alt="Descrição da imagem" width="200" height="400">
 
 ## Gerenciamento de Expertises de Parceiros:
-![image](https://github.com/4DeskGroup/API-2024.1/blob/main/docs/gifs%20-%20s1/adm-lista-de-parceiros-gerenciar-expertises.gif?raw=true)
+<img src="https://github.com/4DeskGroup/API-2024.1/blob/main/docs/gifs%20-%20s1/adm-lista-de-parceiros-gerenciar-expertises.gif?raw=true" alt="Descrição da imagem" width="200" height="400">
+
