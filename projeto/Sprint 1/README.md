@@ -1,4 +1,4 @@
-## Sprint 1 - Entrega de valor
+![image](https://github.com/4DeskGroup/API-2024.1/assets/102293897/c5ba6a82-9f1d-421d-b0ad-61a63b2be67b)## Sprint 1 - Entrega de valor
 
 ## Resumo
 
@@ -21,5 +21,14 @@
 
 
 ## Demonstração do Login 💻:
+### Administrador
+![image](https://github.com/4DeskGroup/API-2024.1/blob/main/docs/gifs%20-%20s1/login-adm.gif?raw=true)
 
+## Consultor de alianças
+![image](https://github.com/4DeskGroup/API-2024.1/blob/main/docs/gifs%20-%20s1/consultor-lista-parceiros-atualizar-expertises.gif?raw=true)
 
+## Demonstração do Registro de Parceiros:
+![image](https://github.com/4DeskGroup/API-2024.1/blob/main/docs/gifs%20-%20s1/registro-parceiro.gif?raw=true)
+
+## Gerenciamento de Expertises de Parceiros:
+![image](https://github.com/4DeskGroup/API-2024.1/blob/main/docs/gifs%20-%20s1/adm-lista-de-parceiros-gerenciar-expertises.gif?raw=true)
