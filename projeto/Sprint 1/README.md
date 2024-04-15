@@ -1,4 +1,4 @@
-![image](https://github.com/4DeskGroup/API-2024.1/assets/102293897/c5ba6a82-9f1d-421d-b0ad-61a63b2be67b)## Sprint 1 - Entrega de valor
+## Sprint 1 - Entrega de valor
 
 ## Resumo
 
