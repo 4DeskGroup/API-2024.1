@@ -1,8 +1,8 @@
-## Sprint 1 - Entrega de valor
+## Sprint 2 - Entrega de valor
 
 ## Resumo
 
-<p> No primeiro estágio do projeto, a equipe estabelece com o cliente a entrega de um produto viável mínimo, ou seja, que tenha funcionalidade de modo a suprir minimamente suas necessidades. Dessa maneira, o grupo visou entregar login, cadastro de parceiros, visualização dos parceiros e suas expertises.</p>
+<p> No segundo estágio do projeto, a equipe estabelece com o cliente a entrega de um produto viável mínimo, ou seja, que tenha funcionalidade de modo a suprir minimamente suas necessidades. Dessa maneira, o grupo visou entregar dashboards das Tracks, Parceiros no sistemas e adicionar nova Track.</p>
 
 ## Backlog do produto :bulb:
 ### Requisitos Funcionais
@@ -17,19 +17,19 @@
 <p> • Conexão do front-end com o back-end (Banco de dados receber e transmitir dados juntamente a aplicação em desenvolvimento). </p>
 
 ## Burndown :chart_with_downwards_trend:
-![image](https://github.com/4DeskGroup/API-2024.1/blob/main/docs/img/grafico-burndown.png)
+![image]()
 
 
-## Demonstração do Login 💻:
+## Demonstração do Dashboard 💻:
 ### Administrador
-<img src="https://github.com/4DeskGroup/API-2024.1/blob/main/docs/gifs%20-%20s1/login-adm.gif?raw=true" alt="Descrição da imagem" width="200" height="400">
+<img src="" alt="Descrição da imagem" width="200" height="400">
 
 ## Consultor de alianças
-<img src="https://github.com/4DeskGroup/API-2024.1/blob/main/docs/gifs%20-%20s1/consultor-lista-parceiros-atualizar-expertises.gif?raw=true" alt="Descrição da imagem" width="200" height="400">
+<img src="" alt="Descrição da imagem" width="200" height="400">
 
 ## Demonstração do Registro de Parceiros:
-<img src="https://github.com/4DeskGroup/API-2024.1/blob/main/docs/gifs%20-%20s1/registro-parceiro.gif?raw=true" alt="Descrição da imagem" width="200" height="400">
+<img src="" alt="Descrição da imagem" width="200" height="400">
 
 ## Gerenciamento de Expertises de Parceiros:
-<img src="https://github.com/4DeskGroup/API-2024.1/blob/main/docs/gifs%20-%20s1/adm-lista-de-parceiros-gerenciar-expertises.gif?raw=true" alt="Descrição da imagem" width="200" height="400">
+<img src="" alt="Descrição da imagem" width="200" height="400">
 
