@@ -29,6 +29,7 @@ de conhecimento dos parceiros e fornecer relatórios relevantes – em plataform
  
 
  :white_check_mark: [SPRINT 1] - 25/03/2024 à 14/04/2024 - <a href="https://github.com/4DeskGroup/API-2024-1/tree/main/projeto/Sprint%201">Acesse a primeira entrega aqui</a></p>
+:white_check_mark: [SPRINT 2] - 15/04/2024 à 05/05/2024 - <a href="https://github.com/4DeskGroup/API-2024.1/blob/main/projeto/Sprint%202">Acesse a segunda entrega aqui</a></p>
  
  # :bulb: Backlog
  <div align="left">
