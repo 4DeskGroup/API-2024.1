@@ -1,29 +1,29 @@
-## Sprint 2 - Entrega de valor
+## Sprint 3 - Entrega de valor
 
 ## Resumo
 
-<p> No segundo estágio do projeto, a equipe estabelece com o cliente a entrega de um produto viável mínimo, ou seja, que tenha funcionalidade de modo a suprir minimamente suas necessidades. Dessa maneira, o grupo visou entregar dashboards das Tracks, Parceiros no sistemas e adicionar nova Track.</p>
+<p> .</p>
 
 ## Backlog do produto :bulb:
 ### Requisitos Funcionais
-<p> •  Desenvolver uma interface de cadastro de parceiros </p>
-<p> • Desenvolver uma interface de desenvolvimento de parceiros </p>
-<p> • Desenvolver um Dashboard de indicadores de desempenho de parceiros </p>
-<p> • Desenvolver um Relatório Analítico de parceiros por produto implementado. </p>
+<p> • . </p>
+<p> • . </p>
+<p> • . </p>
+<p> • . </p>
 
 ### Requisitos Não-Funcionais
-<p> • Desenvolver banco de dados para registrar informações inseridas no sistema. </p>
-<p> • Desenvolver interfaces (front-end). </p>
-<p> • Conexão do front-end com o back-end (Banco de dados receber e transmitir dados juntamente a aplicação em desenvolvimento). </p>
+<p> • . </p>
+<p> • . </p>
+<p> • . </p>
 
 ## Burndown :chart_with_downwards_trend:
-![image](https://github.com/4DeskGroup/API-2024.1/blob/main/docs/img/burndown_s2.png)
+
 
 
 ## Demonstração do Dashboard 💻:
-<img src="https://github.com/4DeskGroup/API-2024.1/blob/main/docs/gifs%20-%20S2/dashboards.gif" alt="Descrição da imagem" width="200" height="400">
+
 
 ## Demonstração Adicionar Nova Track:
-<img src="https://github.com/4DeskGroup/API-2024.1/blob/main/docs/gifs%20-%20S2/adicionar_track%5D.gif" alt="Descrição da imagem" width="200" height="400">
+
 
 
