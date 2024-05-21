@@ -57,7 +57,7 @@ export default function Forms(params) {
     <View style={styles.formContext}>
       <View style={styles.form}>
         <Text style={styles.formText}>
-          Expertises da Track que foram concluídas até o
+          Certificações da expertise que foram concluídas até o
           momento: 
         </Text>
       </View>

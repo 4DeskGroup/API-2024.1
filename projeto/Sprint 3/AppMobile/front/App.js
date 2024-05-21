@@ -22,12 +22,15 @@
 import * as React from 'react';
 // import HomePAR from './src/pages/Home-PAR/HomePAR';
 import HomeADM from './src/pages/ADM/Home/HomeADM';
+// expertises com checkbox:
 import ExpertiseCursoParceiro from './src/pages/ADM/ExpertisesCursos/expertise-cloud/ExpertiseCurso';
+//expertises com barra de progresso e botão:
+import ExpertisesLista from './src/pages/ADM/ExpertisesLista/ExpertisesLista';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { navigationRef } from './RootNavigation';
 import Parceiros from './src/pages/ADM/Parceiros/Parceiros';
-import ProgressoExpertise from './src/pages/ADM/progressoExepertises/ProgressoExpertise';
+import ProgressoExpertise from './src/pages/ADM/TracksLista/ProgressoExpertise';
 import Welcome from './src/pages/LOGIN/welcome';
 import Login from './src/pages/LOGIN/login';
 import CadastroStep1 from './src/pages/ADM/CadastroParceiros/step-1/step1';
@@ -39,6 +42,7 @@ import DashboardCursos from './src/pages/Graficos/dashboardCursos/dashboard';
 import GerenciarUsuario from './src/pages/ADM/GerenciarUsuarios/Gerenciar/gerenciarUsuarios';
 import ListaParceiros from './src/pages/ADM/GerenciarUsuarios/ListaParceiros/listaParceiros';
 import ListaConsultor from './src/pages/ADM/GerenciarUsuarios/ListaConsultor/listaConsultor';
+import CertificacoesCheck from './src/pages/ADM/CertificacoesCheck/expertise-cloud/CertificacoesCheck';
 
 const AppStack = createNativeStackNavigator()
 //caso queira chamar um component de header que seja padrao nosso, em AppStack.Screen, dentro de option passar header: 'A header configurada nossa'
@@ -63,6 +67,8 @@ function App() {
         <AppStack.Screen name='GerenciarUsuarios' component={GerenciarUsuario} options={{ headerShown: false }} />
         <AppStack.Screen name='ListaParceiros' component={ListaParceiros} options={{ headerShown: false }} />
         <AppStack.Screen name='ListaConsultores' component={ListaConsultor} options={{ headerShown: false }} />
+        <AppStack.Screen name='CertificacoesCheck' component={CertificacoesCheck} options={{ headerShown: false }} />
+        <AppStack.Screen name='ExpertisesLista' component={ExpertisesLista} options={{ headerShown: false }} />
       </AppStack.Navigator>
     </NavigationContainer>
   );

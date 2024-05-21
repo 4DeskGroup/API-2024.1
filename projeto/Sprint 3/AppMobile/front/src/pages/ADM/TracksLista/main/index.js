@@ -155,13 +155,14 @@ export default function Main(params) {
     <View style={styles.redBackground}>
       <View style={styles.body}>
         <Text style={styles.bodyText}>
-          Confira o desenvolvimento de suas Tracks:
+          Confira o desenvolvimento de suas Tracks: 
         </Text>
         <View style={styles.containerMain}>
           {lista.map(item => (
             <TouchableOpacity key={item.idExpertise}
               onPress={() => {
-                navigate('ExpertiseCursoParceiro', { IdParceiro: params.params, IdExpertise: item.idExpertise })
+                // navigate('ExpertiseCursoParceiro', { IdParceiro: params.params, IdExpertise: item.idExpertise }) EXPERTISES LISTA EM CHECKBOX
+                navigate('ExpertisesLista', { IdParceiro: params.params, IdExpertise: item.idExpertise }) // EXPERTISES LISTA PROGRESSO E BOTÃO
               }}>
               <View style={styles.buttonContainerExpertise}>
                 <View style={styles.buttonImageText}>

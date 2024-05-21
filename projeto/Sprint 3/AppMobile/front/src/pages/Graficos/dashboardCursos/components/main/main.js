@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, TouchableOpacity, Image, ScrollView } from "react-native";
 import styles from "./style";
-import { ProgressCircle } from "react-native-svg-charts";
 import navigate from '../../../../../../RootNavigation';
 import axios from '../../../../../Axios/axiosInstancia';
 
@@ -56,14 +55,8 @@ export default function Main(params) {
                 </View>
 
                 <View style={styles.buttonGraph}>
-                  <ProgressCircle
-                    style={styles.progressCircle}
-                    progress={item.percentualConclusao / 100}
-                    progressColor={'rgb(198, 25, 0)'}
-                    strokeWidth={15}
-                  />
                   <View style={styles.progressTextCircle}>
-                    <Text style={styles.textCircle}>{Math.round(item.percentualConclusao)}%</Text>
+                    <Text style={styles.textCircle}>{item.percentualConclusao}</Text>
                   </View>
                 </View>
               </View>
