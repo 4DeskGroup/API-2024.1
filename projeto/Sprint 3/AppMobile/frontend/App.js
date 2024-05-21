@@ -49,7 +49,7 @@ function App() {
   return (
     <NavigationContainer ref={navigationRef}>
       <AppStack.Navigator>
-        {/* <AppStack.Screen name='Inicio' component={Welcome} options={{ headerShown: false }} />
+        <AppStack.Screen name='Inicio' component={Welcome} options={{ headerShown: false }} />
         <AppStack.Screen name='Login' component={Login} options={{ headerShown: false }} />
         <AppStack.Screen name='HomeADM' component={HomeADM} options={{ headerShown: false }} />
         <AppStack.Screen name='Parceiros' component={Parceiros} options={{ headerShown: false }} />
@@ -60,12 +60,14 @@ function App() {
         <AppStack.Screen name='DashboardParceiros' component={Dashboard} options={{headerShown: false}} />
         <AppStack.Screen name='CadastroStep1' component={CadastroStep1} options={{ headerShown: false }} />
         <AppStack.Screen name='CadastroStep2' component={CadastroStep2} options={{ headerShown: false }} />
-        <AppStack.Screen name='CadastroStep3' component={CadastroStep3} options={{ headerShown: false }} /> */}
+        <AppStack.Screen name='CadastroStep3' component={CadastroStep3} options={{ headerShown: false }} />
         <AppStack.Screen name='GerenciarUsuarios' component={GerenciarUsuario} options={{ headerShown: false }} />
         <AppStack.Screen name='ListaParceiros' component={ListaParceiros} options={{ headerShown: false }} />
         <AppStack.Screen name='ListaConsultores' component={ListaConsultor} options={{ headerShown: false }} />
         <AppStack.Screen name='EdicaoParceiro' component={EdicaoParceiro} options={{ headerShown: false }} />
         <AppStack.Screen name='EdicaoParceiroStep1' component={EdicaoParceiro} options={{ headerShown: false }} />
+        <AppStack.Screen name='EdicaoParceiroStep2' component={Step2Parceiro} options={{ headerShown: false }} />
+        <AppStack.Screen name='EdicaoParceiroStep3' component={Step3Parceiro} options={{ headerShown: false }} />
       </AppStack.Navigator>
     </NavigationContainer>
   );

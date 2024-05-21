@@ -6,7 +6,6 @@ import Step1Parceiro from './step-1/step1';
 export default function EdicaoParceiro() {
     return (
         <View style={styles.body}>
-            <Title/>
             <Step1Parceiro/>
         </View>
     );
