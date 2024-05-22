@@ -1,13 +1,14 @@
 import React from 'react';
-import { StyleSheet, View} from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import Title from './components/title/title';
-import Main from './components/main/main';
+import MainStep1 from './components/main/main';
 
-export default function Step1Parceiro() {
+export default function Step1Parceiro({ tipoUsuario, dadosParceiroJSON }) {
+    
     return (
         <View style={styles.body}>
-            <Title/>
-            <Main/>
+            <Title tipoUsuario={tipoUsuario} />
+            <MainStep1 tipoUsuario={tipoUsuario} dadosParceiroJSON={dadosParceiroJSON} />
         </View>
     );
 }

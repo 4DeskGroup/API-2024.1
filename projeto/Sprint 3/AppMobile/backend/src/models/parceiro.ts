@@ -17,10 +17,17 @@ export interface ExpertiseInterface {
     cursosRealizados: CursosRealizados[];
 }
 
+interface FilhosCursosRealizados {
+    nome: string;
+    descricao: string;
+    idFilhoCurso: mongoose.Schema.Types.ObjectId;
+}
+
 interface CursosRealizados {
     nome: string;
     descricao: string;
     idCurso: mongoose.Schema.Types.ObjectId;
+    filhosCursoRealizados: FilhosCursosRealizados[]
 }
 
 export interface ParceiroInterface {
@@ -41,12 +48,20 @@ export interface ParceiroInterface {
     primeiroMembro: string;                 // First Membership
     slogan: string;                         // Slogan
     ExpertisesParceiro: ExpertiseInterface[];
+    status: boolean;
 }
+
+const FilhosCursosRealizadosSchema = new mongoose.Schema({
+    idCurso:{type: mongoose.Schema.Types.ObjectId, required: false},
+    nome: { type: String, required: false },
+    descricao: { type: String, required: false }
+})
 
 const CursosRealizadosSchema = new mongoose.Schema({
     idCurso:{type: mongoose.Schema.Types.ObjectId, required: false},
     nome: { type: String, required: false },
-    descricao: { type: String, required: false }
+    descricao: { type: String, required: false },
+    filhosCursosRealizados: [FilhosCursosRealizadosSchema]
 })
 
 const ExpertisesParceiroSchema = new mongoose.Schema({
@@ -79,7 +94,8 @@ const ParceiroSchema = new mongoose.Schema({
     OPNTrack: {type: String, required: true},               // OPN Track
     primeiroMembro: {type: String, required: true},         // First Membership
     slogan: {type: String, required: true},                 // Slogan
-    ExpertisesParceiro: [ExpertisesParceiroSchema]          // Lista de cursos realizados (de qualquer expertise)
+    ExpertisesParceiro: [ExpertisesParceiroSchema],          // Lista de cursos realizados (de qualquer expertise)
+    status: {type: Boolean, default: true}
 })
 
 export const Parceiro = mongoose.model<ParceiroInterface>('Parceiro', ParceiroSchema)

@@ -1,5 +1,5 @@
 import express from 'express';
-import { atualizarCursosParceiro, atualizarCursosParceiroPorIsCursoFeito, cadastrarNovaExpertiseParceiro, GETCursoExpertisesParceiro, GETExpertisesPorcentagem, GETParceiroByID, GETParceiros, GETParceirosNomeId, GETQuantidadeParceiro, SETParceiro } from '../services/parceiroServices';
+import { atualizarCursosParceiro, atualizarCursosParceiroPorIsCursoFeito, cadastrarNovaExpertiseParceiro, DELParceiro, GETCursoExpertisesParceiro, GETExpertisesPorcentagem, GETParceiroByID, GETParceiros, GETParceirosNomeId, GETQuantidadeParceiro, SETParceiro } from '../services/parceiroServices';
 
 const routerParceiro = express.Router();
 
@@ -129,6 +129,18 @@ routerParceiro.get('/GETParceiros', async (req, res) => {
         res.send({ Sucesso: true, Parceiros: parceiros})
     } else {
         res.send({ msg: "Erro ao buscar parceiros.", Erro: result })
+    }
+});
+
+routerParceiro.put("/deletarParceiro/:id", async (req, res) => {
+    const { id } = req.params
+
+    const result = await DELParceiro(id)
+
+    if (result?.Sucesso) {
+        res.send({ msg: "Parceiro deletado com sucesso.", Sucesso: result?.Sucesso }) //, Retorno: result?.retorno })
+    } else {
+        res.send({ msg: "Falha ao deletar Parceiro.", Sucesso: result?.Sucesso, Erro: result?.Erro })
     }
 });
 

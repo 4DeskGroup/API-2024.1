@@ -88,15 +88,15 @@ const styles = StyleSheet.create({
     progressTextCircle: {
         width: '100%',
         position: 'absolute', // Posição absoluta para sobrepor
-        top: '41%', // Ajuste para centralizar verticalmente
+        top: '35%', // Ajuste para centralizar verticalmente
         left: '0', // Ajuste para centralizar horizontalmente
         // backgroundColor: 'blue',
     },
 
     textCircle: {
-        marginLeft: '40%',
+        marginLeft: '30%',
         color: '#313131',
-        fontSize: 16,
+        fontSize: 35,
         fontWeight: 'bold',
     },
 

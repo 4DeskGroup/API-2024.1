@@ -63,15 +63,15 @@ routerUsuario.get('/getUsuarioByID/:id', async (req, res) => {
     }
 });
 
-routerUsuario.delete("/deletarUsuario/:id", async (req, res) => {
+routerUsuario.put("/deletarUsuario/:id", async (req, res) => {
     const { id } = req.params
 
     const result = await DELUsuario(id)
 
     if (result?.Sucesso) {
-        res.send({ msg: "Expertise deletado com sucesso.", Sucesso: result?.Sucesso, Retorno: result?.retorno })
+        res.send({ msg: "Usuário deletado com sucesso.", Sucesso: result?.Sucesso }) //, Retorno: result?.retorno })
     } else {
-        res.send({ msg: "Falha ao deletar expertise.", Sucesso: result?.Sucesso, Retorno: result?.retorno })
+        res.send({ msg: "Falha ao deletar usuário.", Sucesso: result?.Sucesso, Erro: result?.Erro })
     }
 });
 

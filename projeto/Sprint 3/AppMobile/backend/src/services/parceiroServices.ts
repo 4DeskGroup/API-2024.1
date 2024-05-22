@@ -20,7 +20,7 @@ async function SETParceiro(dadosParceiro) {
 
 async function GETParceiros() {
     try{
-        const parceiroLista = await Parceiro.find().lean()
+        const parceiroLista = await Parceiro.find({ status: true }).lean()
         if (parceiroLista){
             return {Sucesso: true, retornoParceiros: parceiroLista}
         }
@@ -183,7 +183,8 @@ async function atualizarCursosParceiro(idParceiro, idExpertise, novosCursos) {
             expertiseParceiro.cursosRealizados.push({
                 idCurso: curso.idCurso,
                 nome: curso.nome,
-                descricao: curso.descricao
+                descricao: curso.descricao,
+                filhosCursoRealizados: []
             });
         });
         
@@ -221,12 +222,61 @@ async function atualizarCursosParceiroPorIsCursoFeito(parceiroExpertiseCursos, i
                     expertiseParceiro.cursosRealizados.push({
                         idCurso: cursoId,
                         nome: cursoNome,
-                        descricao: cursoDescricao
+                        descricao: cursoDescricao,
+                        filhosCursoRealizados: []
                     });
                 }
             } else {
                 // Remove o curso se isCursoFeito for falso
                 expertiseParceiro.cursosRealizados = expertiseParceiro.cursosRealizados.filter(curso => String(curso.idCurso) !== cursoId);
+            }
+
+            await parceiro.save();
+        }
+
+        return { Sucesso: true, mensagem: "Cursos atualizados com sucesso" };
+    } catch (erro) {
+        return { Sucesso: false, Erro: erro };
+    }
+}
+
+async function atualizarFilhosCursosParceiroPorIsCursoFeito(parceiroExpertiseCursos, idParceiro) {
+    //parceiroExpertiseNomePorcentagemId: { expertiseId, cursoID, filhoCursoID, cursoNome, cursoDescricao, isCursoFeito
+    try {
+        for (const { expertiseId, cursoId, filhoCursoId,cursoNome, cursoDescricao, isCursoFeito } of parceiroExpertiseCursos) {
+            const parceiro = await Parceiro.findById(idParceiro);
+
+            if (!parceiro) {
+                throw new Error("Parceiro não encontrado para a expertise fornecida");
+            }
+
+            const expertiseParceiro = parceiro.ExpertisesParceiro.find(expertise => String(expertise.idExpertise) === expertiseId);
+            
+            if (!expertiseParceiro) {
+                throw new Error("Expertise não encontrada no parceiro");
+            }
+            
+            const cursoParceiro = expertiseParceiro.cursosRealizados.find(curso => String(curso.idCurso) === cursoId )
+
+            if (!cursoParceiro) {
+                throw new Error("Curso não encontrada no parceiro");
+            }
+
+
+            if (isCursoFeito) {
+                // Verifica se o curso já está na lista de cursos realizados
+                const cursoExistente = cursoParceiro.filhosCursoRealizados.find(curso => String(curso.idFilhoCurso) === filhoCursoId);
+
+                if (!cursoExistente) {
+                    cursoParceiro.filhosCursoRealizados.push({
+                        descricao: cursoDescricao,
+                        nome: cursoNome,
+                        idFilhoCurso:filhoCursoId
+                    })
+                }
+            } else {
+                // Remove o curso se isCursoFeito for falso
+                cursoParceiro.filhosCursoRealizados = cursoParceiro.filhosCursoRealizados.filter(curso => String(curso.idFilhoCurso) !== filhoCursoId);
             }
 
             await parceiro.save();
@@ -277,7 +327,22 @@ async function GETParceiroByID(id) {
     }
 }
 
+async function DELParceiro(id) {
+    try{
+        const parceiro = await Parceiro.findById(id)
+
+        if (parceiro) {
+            parceiro.status = false
+            await parceiro.save()
+
+            return {Sucesso: true}
+        }
+    } catch (erro) {
+        return {Sucesso: false, Erro: erro}
+    }
+}
+
 export {SETParceiro, GETExpertisesPorcentagem, GETParceiros, GETParceirosNomeId,
      GETCursoExpertisesParceiro, atualizarCursosParceiro,
      atualizarCursosParceiroPorIsCursoFeito, cadastrarNovaExpertiseParceiro,
-      GETParceiroByID, GETQuantidadeParceiro}
+      GETParceiroByID, GETQuantidadeParceiro, DELParceiro}

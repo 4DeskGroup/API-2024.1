@@ -3,11 +3,11 @@ import { StyleSheet, View} from 'react-native';
 import Title from './components/title/title';
 import Main from './components/main/main';
 
-export default function ListaConsultor() {
+export default function ListaConsultor({ route }) {
     return (
         <View style={styles.body}>
             <Title/>
-            <Main/>
+            <Main params={route.params.TipoUsuario}/>
         </View>
     );
 }

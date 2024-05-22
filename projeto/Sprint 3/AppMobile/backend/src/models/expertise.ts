@@ -4,6 +4,13 @@ export interface CursoInterface {
     nome: string;
     descricao: string;
     _id: mongoose.Schema.Types.ObjectId;
+    filhosCurso: FilhosCursoInterface[];
+}
+
+export interface FilhosCursoInterface {
+    nome: string;
+    descricao: string;
+    _id: mongoose.Schema.Types.ObjectId;
 }
 
 export interface ExpertiseInterface {
@@ -13,10 +20,17 @@ export interface ExpertiseInterface {
     cursos: CursoInterface[];
 }
 
-const CursosSchema = new mongoose.Schema({
+const FilhosCursosSchema = new mongoose.Schema({
     nome: { type: String, required: true },
     descricao: { type: String, required: true }
 })
+
+const CursosSchema = new mongoose.Schema({
+    nome: { type: String, required: true },
+    descricao: { type: String, required: true },
+    filhosCurso: [FilhosCursosSchema]
+})
+
 
 const ExpertiseSchema = new mongoose.Schema({
     nome: { type: String, required: true },

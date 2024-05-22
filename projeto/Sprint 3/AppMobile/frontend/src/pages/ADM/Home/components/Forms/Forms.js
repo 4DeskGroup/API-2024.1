@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -11,7 +11,8 @@ import {
 import styles from './style';
 import navigate from '../../../../../../RootNavigation';
 
-export default function Forms() {
+export default function Forms({ tipoUsuario }) {
+
   function button() {
     navigate('CadastroStep1')
   }
@@ -100,10 +101,11 @@ export default function Forms() {
             </View>
           </View>
         </TouchableOpacity>
+
         <TouchableOpacity
           style={styles.buttonMenu}
           onPress={() => {
-            navigate('GerenciarUsuarios')
+            navigate('GerenciarUsuarios', { TipoUsuario: tipoUsuario })
           }}>
           <View style={styles.buttonContainer}>
             <View style={styles.buttonImage}>
@@ -115,7 +117,7 @@ export default function Forms() {
             <View style={styles.buttonText}>
               <Text style={styles.titleButtonMenu}>Gerenciar usuários</Text>
               <Text style={styles.subtitleButtonMenu}>
-                Crie um registro para nova empresa parceira
+                Gerenciar usuários cadastrados no sistema
               </Text>
             </View>
           </View>

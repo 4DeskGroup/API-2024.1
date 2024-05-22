@@ -49,9 +49,14 @@ async function GETUsuarioByID(id) {
 //DELETES
 async function DELUsuario(id) {
     try{
-        const result = await Usuario.deleteOne({_id: id})
-        if (result){
-            return {Sucesso: true, retorno: result}
+        // const result = await Usuario.deleteOne({_id: id})    //Se caso n fomos fazer mais exclusao logica, só descomentar
+        const usuario = await Usuario.findById(id)
+
+        if (usuario){
+            usuario.status = false
+            await usuario.save()
+
+            return {Sucesso: true } //, retorno: result}
         }
     } catch (erro) {
         return {Sucesso: false, Erro: erro}
@@ -77,7 +82,7 @@ async function Login(dados) {
 
 async function GETConsultores() {
     try{
-        const consultores = await Usuario.find({ tipoUsuario: 'ConsultorAlianca' }).lean()
+        const consultores = await Usuario.find({ tipoUsuario: 'ConsultorAlianca', status: true }).lean()
         if (consultores){
             return {Sucesso: true, retornoUsuarios: consultores}
         }
