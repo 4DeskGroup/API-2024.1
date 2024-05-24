@@ -1,13 +1,14 @@
+import { Expertise } from '../models/expertise';
 import { Parceiro } from "../models/parceiro";
 import { GETExpertiseByID, GETExpertises } from "./expertiseServices";
 
 async function SETParceiro(dadosParceiro) {
     try {
         console.log(dadosParceiro);
-        
+
         if (dadosParceiro) {
-            
-            if(dadosParceiro.ExpertisesParceiro.length === 0)return {Sucesso: false, Erro: 'Selecione uma expertise'}
+
+            if (dadosParceiro.ExpertisesParceiro.length === 0) return { Sucesso: false, Erro: 'Selecione uma expertise' }
 
             const parceiro = await Parceiro.create(dadosParceiro)
             console.log(parceiro)
@@ -19,52 +20,52 @@ async function SETParceiro(dadosParceiro) {
 }
 
 async function GETParceiros() {
-    try{
+    try {
         const parceiroLista = await Parceiro.find({ status: true }).lean()
-        if (parceiroLista){
-            return {Sucesso: true, retornoParceiros: parceiroLista}
+        if (parceiroLista) {
+            return { Sucesso: true, retornoParceiros: parceiroLista }
         }
     } catch (erro) {
         console.log(erro);
-        return {Sucesso: false}
+        return { Sucesso: false }
     }
 }
 
 async function GETParceirosNomeId() {
-    try{
+    try {
         const parceiroLista = await Parceiro.find().lean()
         const parceiroExpertiseNomePorcentagemId: { parceiroNome: string; idParceiro: string }[] = [];
-        if(parceiroLista){
-            parceiroLista.forEach(x =>{
+        if (parceiroLista) {
+            parceiroLista.forEach(x => {
                 parceiroExpertiseNomePorcentagemId.push({
                     parceiroNome: x.nome,
                     idParceiro: String(x._id)
                 })
             })
         }
-        if (parceiroExpertiseNomePorcentagemId.length > 0){
-            return {Sucesso: true, retornoParceiros: parceiroExpertiseNomePorcentagemId}
-        }else{
-            return{Sucesso: false, msg: 'Nenhum usuário encontrado'}
+        if (parceiroExpertiseNomePorcentagemId.length > 0) {
+            return { Sucesso: true, retornoParceiros: parceiroExpertiseNomePorcentagemId }
+        } else {
+            return { Sucesso: false, msg: 'Nenhum usuário encontrado' }
         }
     } catch (erro) {
         console.log(erro);
-        return {Sucesso: false}
+        return { Sucesso: false }
     }
 }
 
 async function GETQuantidadeParceiro() {
-    try{
+    try {
         const parceiroQuantidade = await Parceiro.find().countDocuments()
-       
-        if (parceiroQuantidade > 0){
-            return {Sucesso: true, retornoParceiros: parceiroQuantidade}
-        }else{
-            return{Sucesso: false, msg: 'Nenhum usuário encontrado'}
+
+        if (parceiroQuantidade > 0) {
+            return { Sucesso: true, retornoParceiros: parceiroQuantidade }
+        } else {
+            return { Sucesso: false, msg: 'Nenhum usuário encontrado' }
         }
     } catch (erro) {
         console.log(erro);
-        return {Sucesso: false}
+        return { Sucesso: false }
     }
 }
 
@@ -113,6 +114,61 @@ async function GETCursoExpertisesParceiro(idParceiro: string, idExpertise: strin
     }
 }
 
+async function GETCursoFilhoExpertisesParceiro(idParceiro: string, idExpertise: string, cursoID: string) {
+    try {
+        if (!idParceiro) {
+            throw new Error("Sem idParceiro");
+        }
+
+        const parceiroRetorno = await Parceiro.findById(idParceiro).lean();
+
+        if (!parceiroRetorno) {
+            throw new Error("Parceiro não encontrado");
+        }
+
+        const expertiseRetorno = await GETExpertiseByID(idExpertise);
+        const expertiseGET = expertiseRetorno?.retorno;
+
+        if (!expertiseGET) {
+            throw new Error("Dados da expertise não encontrados");
+        }
+
+        const parceiroExpertiseCursos: { cursoID: string; filhoCursoId: string; cursoNome: string; cursoDescricao: string; isCursoFeito: boolean, idExpertise: string }[] = [];
+
+        parceiroRetorno.ExpertisesParceiro.forEach(parceiroExpertise => {
+
+            if (String(expertiseGET._id) === String(parceiroExpertise.idExpertise)) {
+
+                expertiseGET.cursos.forEach(expertiseCurso => {
+                    if (String(expertiseCurso._id) === cursoID) {
+                        const curso = parceiroExpertise.cursosRealizados.find(cursoParceiro => String(cursoParceiro.idCurso) === String(expertiseCurso._id));
+                        console.log("CURSO ENCONTRADO:  " + JSON.stringify(curso));
+
+                        expertiseCurso.filhosCurso.forEach(x => {
+                            var iscursoFilhoFeito = false
+                            if (curso?.filhosCursosRealizados) iscursoFilhoFeito = curso?.filhosCursosRealizados.some(filhoCurso => String(filhoCurso.nome) == String(x.nome))
+
+                            parceiroExpertiseCursos.push({
+                                filhoCursoId: String(expertiseCurso._id),
+                                cursoNome: x.nome,
+                                cursoDescricao: x.descricao,
+                                cursoID: String(expertiseGET._id),
+                                isCursoFeito: iscursoFilhoFeito !== undefined ? iscursoFilhoFeito : false,
+                                idExpertise: idExpertise
+                            });
+
+                        })
+                    }
+                });
+            }
+        });
+
+        return { Sucesso: true, parceiroExpertiseCursos: parceiroExpertiseCursos };
+    } catch (error) {
+        console.error(error);
+        return { Sucesso: false, error: error };
+    }
+}
 
 async function GETExpertisesPorcentagem(idParceiro: string) {
     try {
@@ -140,9 +196,9 @@ async function GETExpertisesPorcentagem(idParceiro: string) {
             var quantidadeTotal = 0;
             var nomeExpertise = parceiroExpertise.nome;
 
-            
+
             expertiseGET.forEach(expertise => {
-                
+
                 if (String(expertise._id) === String(parceiroExpertise.idExpertise)) {
 
                     quantidadeTotal = expertise.cursos.length;
@@ -165,17 +221,133 @@ async function GETExpertisesPorcentagem(idParceiro: string) {
     }
 }
 
+async function inserirCursosRealizados(idParceiro: string) {
+    try {
+        if (!idParceiro) {
+            throw new Error("ID do parceiro não fornecido");
+        }
+
+        const parceiro = await Parceiro.findById(idParceiro).lean();
+        if (!parceiro) {
+            throw new Error("Parceiro não encontrado");
+        }
+
+        // Iterar sobre as expertises do parceiro
+        for (const expertiseParceiro of parceiro.ExpertisesParceiro) {
+            // Buscar a expertise correspondente
+            const expertise = await Expertise.findById(expertiseParceiro.idExpertise).lean();
+            if (!expertise) {
+                console.error(`Expertise não encontrada para o parceiro ${parceiro.nome}`);
+                continue;
+            }
+
+            // Iterar sobre os cursos da expertise e adicioná-los aos cursos realizados do parceiro
+            for (const curso of expertise.cursos) {
+                // Verificar se o curso já existe nos cursos realizados do parceiro
+                const cursoExistente = expertiseParceiro.cursosRealizados.find(cr => String(cr.idCurso) === String(curso._id));
+                if (!cursoExistente) {
+                    // Adicionar o curso aos cursos realizados do parceiro
+                    expertiseParceiro.cursosRealizados.push({
+                        idCurso: curso._id,
+                        nome: curso.nome,
+                        descricao: curso.descricao,
+                        filhosCursosRealizados: []
+                    });
+                }
+            }
+
+            // Atualizar o parceiro no banco de dados
+            await Parceiro.findByIdAndUpdate(idParceiro, parceiro);
+        }
+
+        console.log("Cursos realizados atualizados com sucesso para o parceiro:", parceiro.nome);
+    } catch (error) {
+        console.error("Erro ao inserir cursos realizados:", error);
+    }
+}
+
+async function inserirCursosRealizadosParaTodosParceiros() {
+    try {
+        // Buscar todos os parceiros
+        const parceiros = await Parceiro.find().lean();
+
+        // Iterar sobre todos os parceiros
+        for (const parceiro of parceiros) {
+            // Chamar a função inserirCursosRealizados para o parceiro atual
+            await inserirCursosRealizados(String(parceiro._id));
+        }
+
+        console.log("Cursos realizados atualizados para todos os parceiros com sucesso.");
+    } catch (error) {
+        console.error("Erro ao atualizar cursos realizados para todos os parceiros:", error);
+    }
+}
+
+
+async function GETCursoPorcentagem(idParceiro: string, idExpertise: string) {
+    try {
+        console.log('IDPARCEIOR: ' + idParceiro);
+
+        if (!idParceiro || !idExpertise) {
+            throw new Error("ID do parceiro ou da expertise não fornecido");
+        }
+
+        const parceiroRetorno = await Parceiro.findById(idParceiro).lean();
+        if (!parceiroRetorno) {
+            throw new Error("Parceiro não encontrado");
+        }
+
+        const expertiseRetorno = await Expertise.findById(idExpertise).lean();
+        if (!expertiseRetorno) {
+            throw new Error("Expertise não encontrada");
+        }
+
+        const cursosExpertise = expertiseRetorno.cursos;
+        console.log("CURSOS EXPERTISE:  " + JSON.stringify(cursosExpertise));
+
+        const cursosRealizadosParceiro = parceiroRetorno.ExpertisesParceiro
+            .find(expertise => String(expertise.idExpertise) === idExpertise)?.cursosRealizados || [];
+
+        const expertisePorcentagens: { nome: string; descricao: string, idCurso: string, porcentagem: string, idExpertise: string }[] = [];
+            console.log("SLA:  "+ cursosRealizadosParceiro);
+
+        cursosExpertise.forEach(curso => {
+            const cursoRealizado = cursosRealizadosParceiro.find(cr => String(cr.idCurso) === String(curso._id));
+            const quantidadeTotal = curso.filhosCurso.length;
+            console.log("QUANTIDADE TOTAL:  "+ quantidadeTotal);
+            // console.log("QUANTIDADE TENDO:  "+ cursoRealizado?.filhosCursosRealizados.length);
+            
+            const quantidadeRealizada = cursoRealizado?.filhosCursosRealizados ? cursoRealizado.filhosCursosRealizados.length : 0;
+            const porcentagem = quantidadeTotal > 0 ? (quantidadeRealizada / quantidadeTotal) * 100 : 0;
+            expertisePorcentagens.push({
+                nome: curso.nome,
+                descricao: curso.descricao,
+                porcentagem: `${porcentagem.toFixed(2)}%`,
+                idCurso: String(curso._id),
+                idExpertise: idExpertise
+            });
+        });
+console.log("SAIDA CURSOS:  "+ JSON.stringify(expertisePorcentagens) );
+
+        return { Sucesso: true, expertisePorcentagens };
+    } catch (error) {
+        console.error(error);
+        return { Sucesso: false, error: error };
+    }
+}
+
+
 
 async function atualizarCursosParceiro(idParceiro, idExpertise, novosCursos) {
     try {
         const parceiro = await Parceiro.findById(idParceiro);
-        
+
         if (!parceiro) {
             throw new Error("Parceiro não encontrado");
         }
 
         const expertiseParceiro = parceiro.ExpertisesParceiro.find(expertise => String(expertise.idExpertise) === String(idExpertise));
-        
+
         if (!expertiseParceiro) {
             throw new Error("Expertise não encontrada no parceiro");
         }
@@ -184,10 +356,10 @@ async function atualizarCursosParceiro(idParceiro, idExpertise, novosCursos) {
                 idCurso: curso.idCurso,
                 nome: curso.nome,
                 descricao: curso.descricao,
-                filhosCursoRealizados: []
+                filhosCursosRealizados: []
             });
         });
-        
+
         await parceiro.save();
 
         return { Sucesso: true, mensagem: "Cursos adicionados com sucesso" };
@@ -200,8 +372,8 @@ async function atualizarCursosParceiro(idParceiro, idExpertise, novosCursos) {
 async function atualizarCursosParceiroPorIsCursoFeito(parceiroExpertiseCursos, idParceiro) {
     //parceiroExpertiseNomePorcentagemId: { expertise: string; porcentagem: string; idExpertise: string }[] = []; -- este é o parceiroExpertiseCursos
     try {
-        
-        for (const { expertiseId, cursoId, cursoNome, cursoDescricao, isCursoFeito } of parceiroExpertiseCursos) {
+
+        for (const { expertiseId, cursoID, cursoNome, cursoDescricao, isCursoFeito } of parceiroExpertiseCursos) {
             const parceiro = await Parceiro.findById(idParceiro);
 
             if (!parceiro) {
@@ -216,19 +388,19 @@ async function atualizarCursosParceiroPorIsCursoFeito(parceiroExpertiseCursos, i
 
             if (isCursoFeito) {
                 // Verifica se o curso já está na lista de cursos realizados
-                const cursoExistente = expertiseParceiro.cursosRealizados.find(curso => String(curso.idCurso) === cursoId);
+                const cursoExistente = expertiseParceiro.cursosRealizados.find(curso => String(curso.idCurso) === cursoID);
 
                 if (!cursoExistente) {
                     expertiseParceiro.cursosRealizados.push({
-                        idCurso: cursoId,
+                        idCurso: cursoID,
                         nome: cursoNome,
                         descricao: cursoDescricao,
-                        filhosCursoRealizados: []
+                        filhosCursosRealizados: []
                     });
                 }
             } else {
                 // Remove o curso se isCursoFeito for falso
-                expertiseParceiro.cursosRealizados = expertiseParceiro.cursosRealizados.filter(curso => String(curso.idCurso) !== cursoId);
+                expertiseParceiro.cursosRealizados = expertiseParceiro.cursosRealizados.filter(curso => String(curso.idCurso) !== cursoID);
             }
 
             await parceiro.save();
@@ -241,49 +413,59 @@ async function atualizarCursosParceiroPorIsCursoFeito(parceiroExpertiseCursos, i
 }
 
 async function atualizarFilhosCursosParceiroPorIsCursoFeito(parceiroExpertiseCursos, idParceiro) {
-    //parceiroExpertiseNomePorcentagemId: { expertiseId, cursoID, filhoCursoID, cursoNome, cursoDescricao, isCursoFeito
     try {
-        for (const { expertiseId, cursoId, filhoCursoId,cursoNome, cursoDescricao, isCursoFeito } of parceiroExpertiseCursos) {
+        for (const { idExpertise, cursoID, filhoCursoId, cursoNome, cursoDescricao, isCursoFeito } of parceiroExpertiseCursos) {
             const parceiro = await Parceiro.findById(idParceiro);
 
             if (!parceiro) {
                 throw new Error("Parceiro não encontrado para a expertise fornecida");
             }
 
-            const expertiseParceiro = parceiro.ExpertisesParceiro.find(expertise => String(expertise.idExpertise) === expertiseId);
-            
+            const expertiseParceiro = parceiro.ExpertisesParceiro.find(expertise => String(expertise.idExpertise) === idExpertise);
+
             if (!expertiseParceiro) {
                 throw new Error("Expertise não encontrada no parceiro");
             }
-            
-            const cursoParceiro = expertiseParceiro.cursosRealizados.find(curso => String(curso.idCurso) === cursoId )
+
+            const cursoParceiro = expertiseParceiro.cursosRealizados.find(curso => String(curso.idCurso) === String(filhoCursoId));
 
             if (!cursoParceiro) {
                 throw new Error("Curso não encontrada no parceiro");
             }
 
-
             if (isCursoFeito) {
-                // Verifica se o curso já está na lista de cursos realizados
-                const cursoExistente = cursoParceiro.filhosCursoRealizados.find(curso => String(curso.idFilhoCurso) === filhoCursoId);
+                if (!cursoParceiro.filhosCursosRealizados) {
+                    cursoParceiro.filhosCursosRealizados = [];
+                }
+
+                const cursoExistente = cursoParceiro.filhosCursosRealizados.find(curso => String(curso.nome) === cursoNome);
 
                 if (!cursoExistente) {
-                    cursoParceiro.filhosCursoRealizados.push({
+                    console.log("DNS SAPORRA");
+                    
+                    cursoParceiro.filhosCursosRealizados.push({
                         descricao: cursoDescricao,
                         nome: cursoNome,
-                        idFilhoCurso:filhoCursoId
-                    })
+                    });
+                    console.log("AAASASAS:  "+ JSON.stringify(cursoParceiro.filhosCursosRealizados));
+                    
                 }
             } else {
-                // Remove o curso se isCursoFeito for falso
-                cursoParceiro.filhosCursoRealizados = cursoParceiro.filhosCursoRealizados.filter(curso => String(curso.idFilhoCurso) !== filhoCursoId);
+                if (cursoParceiro.filhosCursosRealizados) {
+                    console.log("ENTRO AQUI?'");
+                    
+                    cursoParceiro.filhosCursosRealizados = cursoParceiro.filhosCursosRealizados.filter(curso => String(curso.nome) !== cursoNome);
+                }
             }
 
             await parceiro.save();
+            console.log(JSON.stringify(parceiro));
+            
         }
 
         return { Sucesso: true, mensagem: "Cursos atualizados com sucesso" };
     } catch (erro) {
+        console.error("Erro ao atualizar cursos do parceiro:", erro);
         return { Sucesso: false, Erro: erro };
     }
 }
@@ -316,33 +498,36 @@ async function cadastrarNovaExpertiseParceiro(idParceiro: string, novasExpertise
 }
 
 async function GETParceiroByID(id) {
-    try{
+    try {
         // O .lean() faz o retorno do resultado já em um formato de objeto javascript
         const parceiro = await Parceiro.findById(id).lean()
-        if (parceiro){
-            return {Sucesso: true, retorno: parceiro}
+        if (parceiro) {
+            return { Sucesso: true, retorno: parceiro }
         }
     } catch (erro) {
-        return {Sucesso: false, Erro: erro}
+        return { Sucesso: false, Erro: erro }
     }
 }
 
 async function DELParceiro(id) {
-    try{
+    try {
         const parceiro = await Parceiro.findById(id)
 
         if (parceiro) {
             parceiro.status = false
             await parceiro.save()
 
-            return {Sucesso: true}
+            return { Sucesso: true }
         }
     } catch (erro) {
-        return {Sucesso: false, Erro: erro}
+        return { Sucesso: false, Erro: erro }
     }
 }
 
-export {SETParceiro, GETExpertisesPorcentagem, GETParceiros, GETParceirosNomeId,
-     GETCursoExpertisesParceiro, atualizarCursosParceiro,
-     atualizarCursosParceiroPorIsCursoFeito, cadastrarNovaExpertiseParceiro,
-      GETParceiroByID, GETQuantidadeParceiro, DELParceiro}
+export {
+    SETParceiro, GETExpertisesPorcentagem, GETParceiros, GETParceirosNomeId,
+    GETCursoExpertisesParceiro, atualizarCursosParceiro,
+    atualizarCursosParceiroPorIsCursoFeito, cadastrarNovaExpertiseParceiro,
+    GETParceiroByID, GETQuantidadeParceiro, DELParceiro, GETCursoPorcentagem,
+    inserirCursosRealizadosParaTodosParceiros, GETCursoFilhoExpertisesParceiro, atualizarFilhosCursosParceiroPorIsCursoFeito
+}

@@ -12,12 +12,12 @@ import NavbarUsers from '../Home/components/navbar/Users';
 
 
 export default function ExpertisesLista({route}){
-console.log('route.params.IdParceiro:  '+ JSON.stringify(route.params.IdParceiro));
+console.log('route.params:  '+ JSON.stringify(route.params));
   return(
     <View style = {styles.body}>
       <Return/>
-      <Title params={route.params.IdParceiro}/>
-      <Main params={route.params.IdParceiro}/>
+      <Title params={route.params}/>
+      <Main params={route.params}/>
       <NavbarUsers/>
     </View>
   );

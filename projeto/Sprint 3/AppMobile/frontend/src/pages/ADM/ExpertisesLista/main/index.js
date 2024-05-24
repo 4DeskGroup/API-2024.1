@@ -29,11 +29,7 @@ const CustomPicker = ({ options, selectedOptions, onSelectOption, onRemoveOption
   };
 
   console.log("OPTIONS:  " + JSON.stringify(options));
-
-
 };
-
-
 
 export default function Main(params) {
   const [expertises, setExpertises] = useState([]);
@@ -50,71 +46,26 @@ export default function Main(params) {
     setSelectedExpertises(updatedExpertises);
   };
 
-  const GETExpertises = async (idParceiro) => {
+  const GETInicio = async (idParceiro, idExpertise) => {
     try {
-        const response = await axios.get(`/listarExpertisesNomeDesIDPorParceiro/${idParceiro}`);
+      const response = await axios.get(`/GETCursosPorcentagem/${idParceiro}/${idExpertise}`);
 
-        if (response.data.Sucesso) {
-            const expertisesArray = response.data.Retorno;
-            setExpertises(expertisesArray);
-        }
-    } catch (error) {
-        console.error('Erro ao fazer a solicitação:', error);
-    }
-};
-
-
-  const GETInicio = async (idParceiro) => {
-    try {
-      const response = await axios.get(`/GETExpertisesPorcentagem/${idParceiro}`);
-
-      if (response.data) {
+      if (response.data && response.data.Sucesso) {
+        console.log("response.data:  " + JSON.stringify(response.data));
         setLista(response.data.ExpertisePorcentagem);
+      } else {
+        console.error('Erro ao buscar expertise:', response.data?.Erro || 'Resposta inesperada');
       }
     } catch (error) {
-      console.error('Erro ao fazer a solicitação:', error);
+      // console.error('Erro ao fazer a solicitação:', error);
     }
   };
-
 
   useEffect(() => {
-    GETInicio(params.params)
-    GETExpertises(params.params)
+    console.log("INICIO TELAAAAAAA:     " + JSON.stringify(params.params.IdParceiro));
+    GETInicio(params.params.IdParceiro, params.params.IdExpertise)
     console.log('expertises: ' + expertises);
   }, [])
-
-  const cadastrarExpertise = async (idParceiro) => {
-    const expertisesParceiro = [];
-
-    selectedExpertises.forEach(item => {
-      var itemAdd = {
-          idExpertise: item.expertiseID,
-          nome: item.nome,
-          descricao:item.descricao,
-          cursosRealizados: []
-      }
-      expertisesParceiro.push(itemAdd)
-  });
-    try {
-      const idParceiro = params.params; // Substitua pelo ID do parceiro
-      const novasExpertises = expertisesParceiro; // Substitua pelos dados da nova expertise
-  
-      const response = await axios.post('/cadastrarExpertiseParceiro', {
-        idParceiro,
-        novasExpertises
-      });
-  
-      if (response.data) {
-        Alert.alert('Sucesso', `${response.data.msg}`);
-        navigate('Parceiros');
-      } else {
-        Alert.alert(`${response.data.msg}`, `${response.data.erro}`);
-      }
-    } catch (error) {
-      console.error('Erro ao cadastrar expertise:', error);
-      Alert.alert('Erro', 'Erro ao cadastrar expertise. Verifique o console para mais detalhes.');
-    }
-  };
 
   return (
     <View style={styles.redBackground}>
@@ -126,12 +77,12 @@ export default function Main(params) {
           {lista.map(item => (
             <TouchableOpacity key={item.idExpertise}
               onPress={() => {
-                navigate('CertificacoesCheck', { IdParceiro: params.params, IdExpertise: item.idExpertise })
+                navigate('CertificacoesCheck', { IdParceiro: params.params.IdParceiro, IdExpertise: params.params.IdExpertise, IdCurso: item.idCurso })
               }}>
               <View style={styles.buttonContainerExpertise}>
                 <View style={styles.buttonImageText}>
                   <View style={styles.buttonContainerTexts}>
-                    <Text style={styles.buttonTitleText}>{item.expertise}</Text>
+                    <Text style={styles.buttonTitleText}>{item.nome}</Text>
                     <Text style={styles.buttonSubtitleText}>
                       {item.porcentagem} da trilha concluídos
                     </Text>
@@ -154,9 +105,6 @@ export default function Main(params) {
               </View>
             </TouchableOpacity>
           ))}
-          
-
-
         </View>
       </View>
     </View>

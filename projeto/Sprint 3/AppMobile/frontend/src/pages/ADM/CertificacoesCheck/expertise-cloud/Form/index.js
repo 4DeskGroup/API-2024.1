@@ -8,14 +8,16 @@ import axios from '../../../../../Axios/axiosInstancia';
 export default function Forms(params) {
   const [lista, setLista] = useState([]);
 
-  const GETInicio = async (idParceiro, idExpertise) => {
+  const GETInicio = async (idParceiro, idExpertise, IdCurso) => {
     try {
-      const response = await axios.post(`/GETCursoExpertisesParceiro`, {
+      const response = await axios.post(`/GETCursoFilhosExpertisesParceiro`, {
         IdParceiro: idParceiro,
-        IdExpertise: idExpertise
+        IdExpertise: idExpertise,
+        IdCurso: IdCurso
       });
 
       if (response.data) {
+        console.log("LISTA DE ENTRADA:  "+ JSON.stringify(response.data.parceiroExpertiseCursos));
         setLista(response.data.parceiroExpertiseCursos);
       }
     } catch (error) {
@@ -24,7 +26,7 @@ export default function Forms(params) {
   };
 
   useEffect(() => {
-    GETInicio(params.params.IdParceiro, params.params.IdExpertise)
+    GETInicio(params.params.IdParceiro, params.params.IdExpertise, params.params.IdCurso)
   }, [])
 
 
@@ -36,7 +38,7 @@ export default function Forms(params) {
 
   const AtualizarCursos = async (IdParceiro, lista) => {
     try {
-      const response = await axios.post(`/atualizarCursosParceiroPorIsCursoFeito`, {
+      const response = await axios.post(`/atualizarCursosFilhoParceiroPorIsCursoFeito`, {
         lista: lista,
         IdParceiro: IdParceiro
       });

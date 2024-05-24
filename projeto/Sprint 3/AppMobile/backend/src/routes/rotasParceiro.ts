@@ -1,5 +1,5 @@
 import express from 'express';
-import { atualizarCursosParceiro, atualizarCursosParceiroPorIsCursoFeito, cadastrarNovaExpertiseParceiro, DELParceiro, GETCursoExpertisesParceiro, GETExpertisesPorcentagem, GETParceiroByID, GETParceiros, GETParceirosNomeId, GETQuantidadeParceiro, SETParceiro } from '../services/parceiroServices';
+import { atualizarCursosParceiro, atualizarCursosParceiroPorIsCursoFeito, atualizarFilhosCursosParceiroPorIsCursoFeito, cadastrarNovaExpertiseParceiro, DELParceiro, GETCursoExpertisesParceiro, GETCursoFilhoExpertisesParceiro, GETCursoPorcentagem, GETExpertisesPorcentagem, GETParceiroByID, GETParceiros, GETParceirosNomeId, GETQuantidadeParceiro, inserirCursosRealizadosParaTodosParceiros, SETParceiro } from '../services/parceiroServices';
 
 const routerParceiro = express.Router();
 
@@ -20,6 +20,21 @@ routerParceiro.post('/GETCursoExpertisesParceiro', async (req, res) => {
     const idExpertise = req.body.IdExpertise
 
     const result = await GETCursoExpertisesParceiro(idParceiro, idExpertise)
+   
+    if (result && result.Sucesso) {
+        const parceiroExpertiseCursos = result.parceiroExpertiseCursos
+        res.send({ Sucesso: true, parceiroExpertiseCursos: parceiroExpertiseCursos})
+    } else {
+        res.send({ msg: "Erro ao buscar Os cursos da expertise e do parceiro.", Erro: result })
+    }
+});
+
+routerParceiro.post('/GETCursoFilhosExpertisesParceiro', async (req, res) => {
+    const idParceiro = req.body.IdParceiro
+    const idExpertise = req.body.IdExpertise
+    const idCurso = req.body.IdCurso
+
+    const result = await GETCursoFilhoExpertisesParceiro(idParceiro, idExpertise, idCurso)
    
     if (result && result.Sucesso) {
         const parceiroExpertiseCursos = result.parceiroExpertiseCursos
@@ -54,6 +69,28 @@ routerParceiro.get('/GETExpertisesPorcentagem/:id', async (req, res) => {
     }
 });
 
+routerParceiro.get('/inserirCursosRealizadosParaTodosParceiros', async (req, res) => {
+    const result = await inserirCursosRealizadosParaTodosParceiros()
+});
+
+routerParceiro.get('/GETCursosPorcentagem/:idParceiro/:idExpertise', async (req, res) => {
+    const { idParceiro, idExpertise } = req.params;
+
+    try {
+        const result = await GETCursoPorcentagem(idParceiro, idExpertise);
+
+        if (result && result.Sucesso) {
+            const expertise = result.expertisePorcentagens;
+            res.send({ Sucesso: true, ExpertisePorcentagem: expertise });
+        } else {
+            res.send({ Sucesso: false, msg: "Erro ao buscar expertise.", Erro: result.error });
+        }
+    } catch (error) {
+        res.send({ Sucesso: false, msg: "Erro ao buscar expertise.", Erro: error });
+    }
+});
+
+
 routerParceiro.post('/atualizarCursosParceiro', async (req, res) => {
     const idParceiro = req.body.idParceiro;
     const idExpertise = req.body.idExpertise;
@@ -85,6 +122,19 @@ routerParceiro.post('/atualizarCursosParceiroPorIsCursoFeito', async (req, res) 
     const IdParceiro = req.body.IdParceiro
     
     const retorno = await atualizarCursosParceiroPorIsCursoFeito(lista, IdParceiro)
+
+    if (retorno?.Sucesso) {
+        res.send({ msg: "Cursos atualizados com sucesso.", Sucesso: retorno.Sucesso })
+    } else {
+        res.send({ msg: "Erro ao cadastrar Usuario.", erro: retorno?.Erro })
+    }
+});
+
+routerParceiro.post('/atualizarCursosFilhoParceiroPorIsCursoFeito', async (req, res) => {
+    const lista = req.body.lista
+    const IdParceiro = req.body.IdParceiro
+    
+    const retorno = await atualizarFilhosCursosParceiroPorIsCursoFeito(lista, IdParceiro)
 
     if (retorno?.Sucesso) {
         res.send({ msg: "Cursos atualizados com sucesso.", Sucesso: retorno.Sucesso })

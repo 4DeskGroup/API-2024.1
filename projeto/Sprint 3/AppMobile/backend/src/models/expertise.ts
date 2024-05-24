@@ -10,7 +10,6 @@ export interface CursoInterface {
 export interface FilhosCursoInterface {
     nome: string;
     descricao: string;
-    _id: mongoose.Schema.Types.ObjectId;
 }
 
 export interface ExpertiseInterface {

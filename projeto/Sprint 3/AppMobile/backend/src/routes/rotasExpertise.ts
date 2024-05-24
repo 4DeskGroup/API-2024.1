@@ -1,5 +1,5 @@
 import express from 'express';
-import { DELExpertise, GETExpertiseByID, GETExpertises, SETExpertise, obterDadosCursosExpertise, obterDadosExpertiseDashboard, obterExpertisesDisponiveis } from '../services/expertiseServices';
+import { DELExpertise, GETExpertiseByID, GETExpertises, SETExpertise, adicionarFilhosCursoEmTodasExpertises, obterDadosCursosExpertise, obterDadosExpertiseDashboard, obterExpertisesDisponiveis } from '../services/expertiseServices';
 import { CursoInterface } from 'models/expertise';
 
 const routerExpertise = express.Router();
@@ -36,6 +36,10 @@ routerExpertise.get('/listarExpertises', async (req, res) => {
     } else {
         res.send({ msg: "Erro ao buscar expertises.", Erro: result })
     }
+});
+
+routerExpertise.get('/adicionarFilhosCursoEmTodasExpertises', async (req, res) => {
+    const result = await adicionarFilhosCursoEmTodasExpertises()
 });
 
 routerExpertise.get('/GETExpertiseGraficos', async (req, res) => {

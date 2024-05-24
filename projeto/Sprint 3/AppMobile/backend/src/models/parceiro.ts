@@ -20,14 +20,13 @@ export interface ExpertiseInterface {
 interface FilhosCursosRealizados {
     nome: string;
     descricao: string;
-    idFilhoCurso: mongoose.Schema.Types.ObjectId;
 }
 
 interface CursosRealizados {
     nome: string;
     descricao: string;
     idCurso: mongoose.Schema.Types.ObjectId;
-    filhosCursoRealizados: FilhosCursosRealizados[]
+    filhosCursosRealizados: FilhosCursosRealizados[]
 }
 
 export interface ParceiroInterface {

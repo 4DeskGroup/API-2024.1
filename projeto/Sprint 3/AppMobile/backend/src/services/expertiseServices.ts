@@ -59,6 +59,39 @@ async function DELExpertise(id) {
     }
 }
 
+async function adicionarFilhosCursoEmTodasExpertises() {
+    try {
+        // Busca todas as expertises
+        const expertises: ExpertiseInterface[] = await Expertise.find().lean();
+
+        // Verifica se há expertises
+        if (expertises.length === 0) {
+            console.log('Nenhuma expertise encontrada.');
+            return;
+        }
+
+        // Adiciona dois filhos de curso para cada expertise
+        const promises = expertises.map(async (expertise) => {
+            expertise.cursos.forEach(curso => {
+                // Verifica se curso.filhosCurso é indefinido e o inicializa como um array vazio, se necessário
+                if (!curso.filhosCurso) {
+                    curso.filhosCurso = [];
+                }
+                curso.filhosCurso.push({ nome: 'Nome1', descricao: 'Descrição1' });
+                curso.filhosCurso.push({ nome: 'Nome2', descricao: 'Descrição2' });
+            });
+            await Expertise.findByIdAndUpdate(expertise._id, expertise);
+        });
+
+        // Aguarda todas as operações de atualização terminarem
+        await Promise.all(promises);
+
+        console.log('Dois filhos de curso adicionados em todas as expertises com sucesso.');
+    } catch (error) {
+        console.error('Erro ao adicionar filhos de curso em todas as expertises:', error);
+    }
+}
+
 
 async function obterDadosExpertiseDashboard() {
     try {
@@ -154,4 +187,4 @@ async function obterExpertisesDisponiveis(idParceiro: string) {
 
 
 export {SETExpertise, GETExpertises, GETExpertiseByID, DELExpertise,
-     obterDadosExpertiseDashboard, obterDadosCursosExpertise, obterExpertisesDisponiveis}
+     obterDadosExpertiseDashboard, obterDadosCursosExpertise, obterExpertisesDisponiveis, adicionarFilhosCursoEmTodasExpertises}
