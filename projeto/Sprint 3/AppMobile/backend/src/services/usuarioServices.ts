@@ -63,6 +63,22 @@ async function DELUsuario(id) {
     }
 }
 
+async function ReativarUsuario(id) {
+    try{
+        // const result = await Usuario.deleteOne({_id: id})    //Se caso n fomos fazer mais exclusao logica, só descomentar
+        const usuario = await Usuario.findById(id)
+
+        if (usuario){
+            usuario.status = true
+            await usuario.save()
+
+            return {Sucesso: true } //, retorno: result}
+        }
+    } catch (erro) {
+        return {Sucesso: false, Erro: erro}
+    }
+}
+
 async function Login(dados) {
     try{
         if (dados) {
@@ -82,7 +98,7 @@ async function Login(dados) {
 
 async function GETConsultores() {
     try{
-        const consultores = await Usuario.find({ tipoUsuario: 'ConsultorAlianca', status: true }).lean()
+        const consultores = await Usuario.find({ tipoUsuario: 'ConsultorAlianca' }).lean()
         if (consultores){
             return {Sucesso: true, retornoUsuarios: consultores}
         }
@@ -92,4 +108,4 @@ async function GETConsultores() {
     }
 }
 
-export {SETUsuario, GETUsuarioByID, GETUsuarios, DELUsuario, Login, GETQuantidadeConsultores, GETConsultores}
+export {SETUsuario, GETUsuarioByID, GETUsuarios, DELUsuario, Login, GETQuantidadeConsultores, GETConsultores, ReativarUsuario}

@@ -34,25 +34,51 @@ export default function Main(params) {
         }
     }
 
-    const confirmDelete = (id) => {
-        Alert.alert(
-            "Confirmar exclusão",
-            "Tem certeza de que deseja excluir este consultor?",
-            [
-                {
-                    text: "Cancelar",
-                    style: "cancel"
-                },
-                { text: "Excluir", onPress: async () => await inativarUsuario(id) }
-            ],
-            { cancelable: false }
-        );
+    const reativarUsuario = async (id) => {
+        const response = await axios.put(`/reativarUsuario/${id}`)
+
+        if (response.data.Sucesso) {
+            GETConsultores()
+        } else {
+            Alert.alert("Erro", `${response.data.msg}: ${response.data.Erro}`)
+        }
+    }
+
+    const PUTStatus = (id, status) => {
+        if (status === true) {
+            Alert.alert(
+                "Confirmar",
+                "Tem certeza de que deseja inativar este consultor?",
+                [
+                    {
+                        text: "Cancelar",
+                        style: "cancel"
+                    },
+                    { text: "Inativar", onPress: async () => await inativarUsuario(id) }
+                ],
+                { cancelable: false }
+            );
+        } else {
+            Alert.alert(
+                "Confirmar",
+                "Tem certeza de que deseja reativar este consultor?",
+                [
+                    {
+                        text: "Cancelar",
+                        style: "cancel"
+                    },
+                    { text: "Reativar", onPress: async () => await reativarUsuario(id) }
+                ],
+                { cancelable: false }
+            );
+        }
+
     };
 
     return (
         <ScrollView style={styles.whiteBackground}>
             <View style={styles.container}>
-                <TouchableOpacity onPress={() => {navigate('GerenciarUsuarios', {TipoUsuario: tipoUsuario})}}>
+                <TouchableOpacity onPress={() => { navigate('GerenciarUsuarios', { TipoUsuario: tipoUsuario }) }}>
                     <Image
                         style={styles.arrow}
                         source={require('../../img/arrow.png')} />
@@ -64,12 +90,17 @@ export default function Main(params) {
                     <View style={styles.campo1}>
                         <Text style={styles.texto2}>{item.nome}</Text>
                         <View style={styles.iconContainer}>
-                            <TouchableOpacity onPress={() => confirmDelete(item._id)}>
-                                <Image source={require('../../img/excluir.png')} style={styles.excluir} />
+                            <TouchableOpacity onPress={() => PUTStatus(item._id, item.status)}>
+                                {item.status === true && (
+                                    <Image source={require('../../img/excluir.png')} style={styles.excluir} />
+                                )}
+                                {item.status === false && (
+                                    <Image source={require('../../img/reativar.png')} style={styles.excluir} />
+                                )}
                             </TouchableOpacity>
-                            <TouchableOpacity>
+                            {/* <TouchableOpacity>
                                 <Image source={require('../../img/editar.png')} style={styles.editar} />
-                            </TouchableOpacity>
+                            </TouchableOpacity> */}
                         </View>
                     </View>
 

@@ -27,6 +27,12 @@ export default function Main({ parceiro, tipoUsuario }) {
 
     }, [parceiro]);
 
+    // SERÁ IMPLEMENTADO NA 4 SPRINT
+    const atualizarParceiro = () => {
+        console.log(parceiroDados)
+    }
+
+
     return (
         <ScrollView style={styles.whiteBackground}>
             <View style={styles.container}>
@@ -76,7 +82,7 @@ export default function Main({ parceiro, tipoUsuario }) {
                         onChangeText={text => setSlogan(text)}
                     />
 
-                    <TouchableOpacity style={styles.button}>
+                    <TouchableOpacity style={styles.button} onPress={atualizarParceiro}>
                         <Text style={styles.buttonText}>CONCLUIR</Text>
                     </TouchableOpacity>
                 </View>

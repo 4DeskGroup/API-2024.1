@@ -107,15 +107,25 @@ async function obterDadosExpertiseDashboard() {
             for (const parceiro of parceiros) {
                 let completos = 0;
                 for (const curso of expertise.cursos) {
-                    if (parceiro.ExpertisesParceiro.find(exp => String(exp.idExpertise) === idExpertise && exp.cursosRealizados.find(cur => String(cur.idCurso) === String(curso._id)))) {
-                        completos++;
+                    const expertiseParceiro = parceiro.ExpertisesParceiro.find(exp => String(exp.idExpertise) === idExpertise);
+                    if (expertiseParceiro) {
+                        const cursoParceiro = expertiseParceiro.cursosRealizados.find(cur => String(cur.idCurso) === String(curso._id));
+                        if (cursoParceiro && cursoParceiro.filhosCursosRealizados) {
+                            const todosFilhosPresentes = curso.filhosCurso.every(filhoCurso => 
+                                cursoParceiro.filhosCursosRealizados.some(filhoRealizado => String(filhoRealizado.nome) === String(filhoCurso.nome))
+                            );
+
+                            if (todosFilhosPresentes) {
+                                completos++;
+                            }
+                        }
                     }
                 }
                 if (completos === quantidadeCursos) {
                     totalCompletos++;
                 }
             }
-            const percentualCompletos: number = (totalCompletos / quantidadeParceiros) * 100;
+            const percentualCompletos: number = totalCompletos //> 0 ? (totalCompletos / quantidadeParceiros) * 100 : 0;
 
             return {
                 idExpertise,
@@ -132,6 +142,7 @@ async function obterDadosExpertiseDashboard() {
         throw error;
     }
 }
+
 async function obterDadosCursosExpertise(idExpertise: string) {
     try {
         const expertise: ExpertiseInterface | null = await Expertise.findById(idExpertise).lean();
@@ -140,19 +151,39 @@ async function obterDadosCursosExpertise(idExpertise: string) {
         }
 
         const cursos = expertise.cursos;
-
         const dadosCursos: DadosCurso[] = [];
 
-        for (const curso of cursos) {
-            const quantidadeParceiros: number = await Parceiro.countDocuments({ 'ExpertisesParceiro.idExpertise': idExpertise, 'ExpertisesParceiro.cursosRealizados.idCurso': curso._id });
-            const totalParceiros: number = await Parceiro.countDocuments({ 'ExpertisesParceiro.idExpertise': idExpertise });
+        const totalParceiros: number = await Parceiro.countDocuments({ 'ExpertisesParceiro.idExpertise': idExpertise });
 
-            const percentualConclusao: number = (quantidadeParceiros / totalParceiros) * 100;
+        for (const curso of cursos) {
+            const parceiros = await Parceiro.find({ 'ExpertisesParceiro.idExpertise': idExpertise, 'ExpertisesParceiro.cursosRealizados.idCurso': curso._id }).lean();
+
+            let quantidadeParceirosConcluiu = 0;
+
+            for (const parceiro of parceiros) {
+                const expertiseParceiro = parceiro.ExpertisesParceiro.find(exp => String(exp.idExpertise) === idExpertise);
+
+                if (expertiseParceiro) {
+                    const cursoParceiro = expertiseParceiro.cursosRealizados.find(cur => String(cur.idCurso) === String(curso._id));
+
+                    if (cursoParceiro && cursoParceiro.filhosCursosRealizados) {
+                        const todosFilhosPresentes = curso.filhosCurso.every(filhoCurso => 
+                            cursoParceiro.filhosCursosRealizados.some(filhoRealizado => String(filhoRealizado.nome) === String(filhoCurso.nome))
+                        );
+
+                        if (todosFilhosPresentes) {
+                            quantidadeParceirosConcluiu++;
+                        }
+                    }
+                }
+            }
+
+            const percentualConclusao: number = quantidadeParceirosConcluiu//totalParceiros > 0 ? (quantidadeParceirosConcluiu / totalParceiros) * 100 : 0;
 
             dadosCursos.push({
                 nomeCurso: curso.nome,
                 percentualConclusao,
-                quantidadeParceirosConcluiu: quantidadeParceiros
+                quantidadeParceirosConcluiu
             });
         }
 
@@ -162,6 +193,7 @@ async function obterDadosCursosExpertise(idExpertise: string) {
         throw error;
     }
 }
+
 
 async function obterExpertisesDisponiveis(idParceiro: string) {
     try {

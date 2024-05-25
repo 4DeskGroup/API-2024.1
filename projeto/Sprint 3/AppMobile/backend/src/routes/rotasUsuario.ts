@@ -1,5 +1,5 @@
 import express from 'express';
-import { DELUsuario, GETConsultores, GETQuantidadeConsultores, GETUsuarioByID, GETUsuarios, Login, SETUsuario } from '../services/usuarioServices';
+import { DELUsuario, GETConsultores, GETQuantidadeConsultores, GETUsuarioByID, GETUsuarios, Login, ReativarUsuario, SETUsuario } from '../services/usuarioServices';
 
 const routerUsuario = express.Router();
 
@@ -72,6 +72,18 @@ routerUsuario.put("/deletarUsuario/:id", async (req, res) => {
         res.send({ msg: "Usuário deletado com sucesso.", Sucesso: result?.Sucesso }) //, Retorno: result?.retorno })
     } else {
         res.send({ msg: "Falha ao deletar usuário.", Sucesso: result?.Sucesso, Erro: result?.Erro })
+    }
+});
+
+routerUsuario.put("/reativarUsuario/:id", async (req, res) => {
+    const { id } = req.params
+
+    const result = await ReativarUsuario(id);
+
+    if (result?.Sucesso) {
+        res.send({ msg: "Usuário reativado com sucesso.", Sucesso: result?.Sucesso }) //, Retorno: result?.retorno })
+    } else {
+        res.send({ msg: "Falha ao reativar usuário.", Sucesso: result?.Sucesso, Erro: result?.Erro })
     }
 });
 

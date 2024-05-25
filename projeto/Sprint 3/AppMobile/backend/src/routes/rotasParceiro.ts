@@ -1,5 +1,5 @@
 import express from 'express';
-import { atualizarCursosParceiro, atualizarCursosParceiroPorIsCursoFeito, atualizarFilhosCursosParceiroPorIsCursoFeito, cadastrarNovaExpertiseParceiro, DELParceiro, GETCursoExpertisesParceiro, GETCursoFilhoExpertisesParceiro, GETCursoPorcentagem, GETExpertisesPorcentagem, GETParceiroByID, GETParceiros, GETParceirosNomeId, GETQuantidadeParceiro, inserirCursosRealizadosParaTodosParceiros, SETParceiro } from '../services/parceiroServices';
+import { atualizarCursosParceiro, atualizarCursosParceiroPorIsCursoFeito, atualizarFilhosCursosParceiroPorIsCursoFeito, cadastrarNovaExpertiseParceiro, DELParceiro, GETCursoExpertisesParceiro, GETCursoFilhoExpertisesParceiro, GETCursoPorcentagem, GETExpertisesPorcentagem, GETParceiroByID, GETParceiros, GETParceirosNomeId, GETQuantidadeParceiro, inserirCursosRealizadosParaTodosParceiros, ReativarParceiro, SETParceiro } from '../services/parceiroServices';
 
 const routerParceiro = express.Router();
 
@@ -191,6 +191,18 @@ routerParceiro.put("/deletarParceiro/:id", async (req, res) => {
         res.send({ msg: "Parceiro deletado com sucesso.", Sucesso: result?.Sucesso }) //, Retorno: result?.retorno })
     } else {
         res.send({ msg: "Falha ao deletar Parceiro.", Sucesso: result?.Sucesso, Erro: result?.Erro })
+    }
+});
+
+routerParceiro.put("/reativarParceiro/:id", async (req, res) => {
+    const { id } = req.params
+
+    const result = await ReativarParceiro(id);
+
+    if (result?.Sucesso) {
+        res.send({ msg: "Parceiro reativado com sucesso.", Sucesso: result?.Sucesso }) //, Retorno: result?.retorno })
+    } else {
+        res.send({ msg: "Falha ao reativar Parceiro.", Sucesso: result?.Sucesso, Erro: result?.Erro })
     }
 });
 

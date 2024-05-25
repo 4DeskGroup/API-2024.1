@@ -152,7 +152,7 @@ export default function CadastroStep3(parametros) {
 
         if (response.data.Sucesso) {
             Alert.alert('Sucesso', `${response.data.msg}`)
-            navigate('HomeADM')
+            navigate('HomeADM', {TipoUsuario: 'Administrador'})
         } else {
             Alert.alert(`${response.data.msg}`, `${response.data.erro}`)
         }

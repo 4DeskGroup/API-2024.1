@@ -89,6 +89,7 @@ export default function Main(params) {
     try {
         const response = await axios.get(`/listarExpertisesNomeDesIDPorParceiro/${idParceiro}`);
 
+        
         if (response.data.Sucesso) {
             const expertisesArray = response.data.Retorno;
             setExpertises(expertisesArray);
@@ -102,7 +103,7 @@ export default function Main(params) {
   const GETInicio = async (idParceiro) => {
     try {
       const response = await axios.get(`/GETExpertisesPorcentagem/${idParceiro}`);
-
+      
       if (response.data) {
         setLista(response.data.ExpertisePorcentagem);
       }
