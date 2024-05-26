@@ -6,12 +6,8 @@
 
 
 
-##### <p align="center">  Empresa parceira: </p>
-<div align = "center">
-<img src = "https://github.com/4DeskGroup/API-2024-1/blob/main/docs/img/Oracle-Logo.jpg" style="width:130px">
-</div>
- 
---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+##### <p align="center">  Empresa parceira - Oracle </p>
+
 <div align="center">
  
 [O Projeto](https://github.com/4DeskGroup/API-2024-1/edit/main/README.md) • [Calendário Entrega Sprints](https://github.com/4DeskGroup/API-2024-1/edit/main/README.md#-planejamento-de-entregas) •
