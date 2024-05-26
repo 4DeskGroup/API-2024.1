@@ -28,5 +28,3 @@
 ## Demonstração de login como consultor de alianças :
 <img src="https://github.com/4DeskGroup/API-2024.1/blob/main/docs/gifs_api3/login_consultor.gif" width="200" height="400">
 
-
-
