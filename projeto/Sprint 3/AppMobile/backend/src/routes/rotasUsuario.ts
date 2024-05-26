@@ -20,11 +20,11 @@ routerUsuario.get('/listarUsuarios', async (req, res) => {
     if (result) {
         const usuarioLista = result.retornoUsuarios;
 
-        // Método com For padrãozão
+        // Método com For padrão
         if (usuarioLista) {
             for (const usuario of usuarioLista) {
                 console.log(usuario._id.toString());      //Necessário o toString() para que o retorno seja somente os numeros (GUIDs) do ID.
-            }                                              //Caso não passe, ele retornará como new ObjectId('660be7fc9a32d90bf2ea35fa')
+            }                                              
         }
 
         // Método com for each
