@@ -14,7 +14,7 @@ routerParceiro.get('/GETParceirosNomeId', async (req, res) => {
         res.send({ msg: "Erro ao buscar parceiros.", Erro: result })
     }
 });
-
+//nada
 
 routerParceiro.post('/GETCursoExpertisesParceiro', async (req, res) => {
     const idParceiro = req.body.IdParceiro
