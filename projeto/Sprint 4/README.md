@@ -2,7 +2,7 @@
 
 ## Resumo
 
-<p> No quarto estágio do projeto, a equipe estabelece com o cliente a entrega de um produto viável mínimo, ou seja, que tenha funcionalidade de modo a suprir minimamente suas necessidades. Dessa maneira, o grupo visou entregar geração automática de relatórios com informações dos usuários e dados do sistemas, editar e excluir consultor de alianças.</p>
+<p> No quarto estágio do projeto, a equipe estabelece com o cliente a entrega de um produto viável mínimo, ou seja, que tenha funcionalidade de modo a suprir minimamente suas necessidades. Dessa maneira, o grupo visou entregar geração automática de relatórios com informações dos usuários e dados do sistemas, cadastrar, editar e excluir consultor de alianças.</p>
 
 ## Backlog do produto :bulb:
 ### Requisitos Funcionais
@@ -20,6 +20,9 @@
 <img src="" width="200" height="400">
 
 ## Demonstração de editar consultor de alianças👥 :
+<img src="" width="200" height="400">
+
+## Demonstração de cadastrar consultor de alianças👥 :
 <img src="" width="200" height="400">
 
 ## Demonstração de consultor de alianças editar seus dados:
