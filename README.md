@@ -32,7 +32,7 @@ de conhecimento dos parceiros e fornecer relatórios relevantes – em plataform
  
  # :bulb: Backlog
  <div align="left">
-   <img align="center" src="https://github.com/4DeskGroup/API-2024-1/blob/main/docs/img/backlog.png" width="550" height="300" alt="backog"/>
+   <img align="center" src="https://github.com/4DeskGroup/API-2024.1/blob/main/docs/backlog.png" width="550" height="300" alt="backog"/>
  </div>
 
 
