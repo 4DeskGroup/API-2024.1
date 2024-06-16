@@ -16,17 +16,14 @@
 <p> • Desenvolver interfaces (front-end). </p>
 <p> • Conexão do front-end com o back-end (Banco de dados receber e transmitir dados juntamente a aplicação em desenvolvimento). </p>
 
-## Demonstração do dashboard 📊:
-<img src="https://github.com/4DeskGroup/API-2024.1/blob/main/docs/gifs_api3/adm_dashboard.gif" width="200" height="400">
+## Demonstração de gerar relatórios 📊:
+<img src="" width="200" height="400">
 
-## Demonstração dos cursos dos parceiros 📚:
-<img src="https://github.com/4DeskGroup/API-2024.1/blob/main/docs/gifs_api3/adm_cursos.gif" width="200" height="400">
+## Demonstração de editar consultor de alianças👥 :
+<img src="" width="200" height="400">
 
-## Demonstração de desativar usuário e reativar 👥 :
-<img src="https://github.com/4DeskGroup/API-2024.1/blob/main/docs/gifs_api3/adm_gerenciar_usuario.gif" width="200" height="400">
-
-## Demonstração de login como consultor de alianças :
-<img src="https://github.com/4DeskGroup/API-2024.1/blob/main/docs/gifs_api3/login_consultor.gif" width="200" height="400">
+## Demonstração de consultor de alianças editar seus dados:
+<img src="" width="200" height="400">
 
 
 
